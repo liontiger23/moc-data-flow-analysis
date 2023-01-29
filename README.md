@@ -1,11 +1,6 @@
-# Presentation template
+# Methods of optimizing compilation: Data flow analysis
 
-Sample template to get you started with Pandoc + Beamer presentations.
-
-Fork this repository to bootstrap your presentation.
-
-Main source: [pres.md](pres.md)  
-Result: [publish/pres.pdf](publish/pres.pdf)
+Data flow analysis presentation.
 
 ## Building
 
