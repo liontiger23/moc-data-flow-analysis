@@ -1,0 +1,154 @@
+%\usepackage{xcolor}   % for \textcolor
+\lstset{language=scala,
+    basicstyle=\ttfamily,breaklines=false,
+    captionpos=b,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    escapeinside={\$\$},columns=flexible,
+    emph=[1]{ordered,by,break,dom,call},emphstyle=[1]{\bfseries},
+    emph=[2]{super,final,protected,private,package},emphstyle=[2]{},
+    emph=[3]{find,resolve},emphstyle=[3]{\itshape},
+    postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+    texcl=true,
+}
+
+%%%%%%%
+%% Allow skipping line numbers -- https://tex.stackexchange.com/a/215752
+\let\origthelstnumber\thelstnumber
+\makeatletter
+\newcommand*\Suppressnumber{%
+  \lst@AddToHook{OnNewLine}{%
+    \let\thelstnumber\relax%
+     \advance\c@lstnumber-\@ne\relax%
+    }%
+}
+
+\newcommand*\Reactivatenumber[1]{%
+  \lst@AddToHook{OnNewLine}{%
+   \let\thelstnumber\origthelstnumber%
+   %\setcounter{lstnumber}{\numexpr#1-1\relax}%
+   \advance\c@lstnumber\@ne\relax%
+  }%
+}
+
+\makeatother
+%%%%%%%
+
+%% Set numbered footnotes in minipages
+\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+
+%% Do not number tables
+%\captionsetup[table]{labelformat=empty}
+
+\usepackage{csquotes}
+
+%% Normal subscripts in listings using \textsubscript{i} -- https://tex.stackexchange.com/questions/63845/boldface-and-subscripts-in-verbatim-mode    
+\usepackage{fixltx2e}
+
+%% Hack for using latex envs inside markdown -- https://github.com/jgm/pandoc/issues/3145#issuecomment-302787889
+\newcommand{\hideFromPandoc}[1]{#1}
+\hideFromPandoc{
+  \let\Begin\begin
+  \let\End\end
+}
+
+%% TODO command
+\newcommand\todo[1]{\textcolor{red}{#1}}
+
+%%%%%%%%%%%%%%%%%%%
+%% Beamer stuff
+%%%%%%%%%%%%%%%%%%%
+
+%% Change template for page number to be just current page number
+%% and increase vertical offset
+\setbeamertemplate{footline}{
+  \hfill%
+  \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \setbeamertemplate{page number in head/foot}[pagenumber]%
+  \usebeamertemplate*{page number in head/foot}\kern1em\vskip1em%
+}
+
+%% Update size and color of page numbering
+\setbeamerfont{page number in head/foot}{size=\footnotesize}
+\setbeamercolor{page number in head/foot}{fg=main}
+
+\colorlet{main}{black}
+\colorlet{maininverted}{white}
+\definecolor{bginverted}{RGB}{98,98,98}
+
+\setbeamercolor*{palette primary}{fg=maininverted,bg=bginverted}
+
+%\setbeamercolor*{titlelike}{fg=main}
+\setbeamercolor*{titlelike}{parent=palette primary}
+\setbeamercolor{frametitle}{parent=palette primary}
+\setbeamercolor{structer}{fg=main}
+\setbeamercolor{block title}{fg=main}
+
+%% Center block titles
+%\setbeamerfont{block title}{size=\centering\large}
+
+\setbeamertemplate{itemize items}[circle]
+\setbeamercolor{itemize item}{fg=main}
+\setbeamercolor{itemize subitem}{fg=main}
+\setbeamercolor{enumerate item}{fg=main}
+\setbeamercolor{enumerate subitem}{fg=main}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\setbeamercolor{alerted text}{fg=googlered}
+
+%% Remove "Figure X:" prefix of figures
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+%% Hack for onlytextwidth in beamer columns -- https://github.com/jgm/pandoc/issues/4150#issuecomment-598041677
+%% configure columns environment to use totalwidth=\textwidth only
+\let\origcolumns\columns
+\let\endorigcolumns\endcolumns
+\renewenvironment{columns}[1][]{\origcolumns[onlytextwidth,#1]}{\endorigcolumns}
+
+%% fix some issues with pandoc -- https://tex.stackexchange.com/a/426090
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%
+%% Tikz stuff
+%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,matrix,calc,positioning,fit,graphs,arrows.meta,backgrounds,decorations.pathreplacing,overlay-beamer-styles}
+
+\tikzset{>=latex}
+
+%% Align text vertically with subscript
+%\tikzset{text depth=.25ex}
+%% Align text vertically without subscript
+\tikzset{text depth=0}
+
+
+%% Scope prefix support -- https://tex.stackexchange.com/a/128079
+\makeatletter
+\tikzset{%
+  prefix/.code={%
+    \tikzset{%
+      name/.code={\edef\tikz@fig@name{#1 ##1}}
+    }%
+  }%
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%
+%% pgfplots stuff
+%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+
+\definecolor{googleblue}{HTML}{4285F4}
+\definecolor{googlered}{HTML}{EA4335}
+\definecolor{googleyellow}{HTML}{FBBC04}
+\definecolor{googlegreen}{HTML}{34A753}
+\definecolor{googleorange}{HTML}{FE6D00}
+

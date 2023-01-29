@@ -1,0 +1,5 @@
+*~
+*.swp
+*.pptx
+*.pdf
+!publish/**
