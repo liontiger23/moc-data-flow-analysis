@@ -5,6 +5,46 @@ subtitle: (Data-flow analysis)
 
 # Потоковый анализ
 
+```{=latex}
+\centering
+\begin{tikzpicture}[scale=0.3]
+  % Source: https://texample.net/tikz/examples/rgb-color-mixing/
+
+  % Draw three spotlights of the primary colors red, green and blue
+  % (they are primary in an additive colorspace where light are mixed)
+  \draw [draw=none, fill=red] (90:1.5) circle (2);
+  \draw [draw=none, fill=green] (-30:1.5) circle (2);
+  \draw [draw=none, fill=blue] (210:1.5) circle (2);
+
+  % Draw areas where two of the three primary colors are overlapping.
+  % These areas are the secondary colors yellow, cyan and magenta.
+  \begin{scope} % red + green = yellow
+    \clip (90:1.5) circle(2);
+    \draw [draw=none, fill=yellow] (-30:1.5) circle (2);
+  \end{scope} % blue + red = magenta
+  \begin{scope}
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=magenta] (90:1.5) circle (2);
+  \end{scope}
+  \begin{scope} % green + blue = cyan
+    \clip (-30:1.5) circle(2);
+    \draw [draw=none, fill=cyan] (210:1.5) circle (2);
+  \end{scope}
+
+  % Draw the center area which consists of all the primary colors.
+  \begin{scope} % red + green + blue = white
+    \clip (90:1.5) circle(2);
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=white] (-30:1.5) circle (2);	
+  \end{scope}
+  % Draw main color letters
+  \node at ( 90:2) {R};
+  \node at (-30:2) {G};
+  \node at (210:2) {B};
+\end{tikzpicture}
+```
+
+
 ## Достижимые присваивания (Reaching definitions)
 
 <!--
