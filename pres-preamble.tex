@@ -12,6 +12,9 @@
     texcl=true,
 }
 
+%% easier and unified removal of padding
+\newcommand{\up}{\vspace{-0.5em}}
+
 %%%%%%%
 %% Allow skipping line numbers -- https://tex.stackexchange.com/a/215752
 \let\origthelstnumber\thelstnumber
@@ -117,6 +120,8 @@
 \setbeamerfont{block body}{size=\small}
 %% Reduce space between block title and its body
 %\addtobeamertemplate{block begin}{}{\vspace*{-0.5em}}
+%% Reduce space between blocks
+\addtobeamertemplate{block end}{}{\vspace*{-1em}}
 
 
 %%%%%%%%%%%%%%%%%%%
