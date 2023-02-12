@@ -32,12 +32,6 @@ subtitle: (Data-flow analysis)
 
 ## \centering CFG
 
-```{=latex}
-\centering
-\begin{tikzpicture}
-\end{tikzpicture}
-```
-
 :::::
 :::::::
 
@@ -52,47 +46,100 @@ subtitle: (Data-flow analysis)
 \vline
 ::::: {.column width=48%}
 
-#
 
 ```{=latex}
-\only<2->{
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1em -\pgflinewidth},minimum height={1em - \pgflinewidth},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    cold/.style={fill=googlecyan},
+    hot/.style={fill=googlemagenta},
+    sibling distance=3em,
+    level distance=3em,
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+    selected on/.style={alt=####1{thick}{}},
+    entry/.style={selected on=<{2,4,10}>},
+    magenta source/.style={magenta,selected on=<{2,6,12}>,
+      background fill=magenta!50,fill on=<3->},
+    cyan source/.style={cyan,selected on=<{4,6,8,10,12}>,
+      alt=<1-10>{background fill=cyan!50}{background fill=green!50},fill on=<5->},
+    magenta cyan target/.style={selected on=<{6,14}>,
+      alt=<1-12>{background fill=blue!50}{background fill=black!50},fill on=<7->},
+    yellow source/.style={yellow,selected on=<{4,8,10,14}>,
+      alt=<1-8>{background fill=yellow!50}{background fill=green!50},fill on=<9->},
+    exit/.style={selected on=<{14}>,
+      background fill=black!50,fill on=<15>},
+  ]
+
+  \matrix {
+  \& \node [entry] (entry) {}; \& \\
+  \node [magenta source] (magenta source) {}; \&  \& \node [cyan source] (cyan source) {}; \\
+  \node [magenta cyan target] (magenta cyan target) {}; \&  \& \node [yellow source] (yellow source) {}; \\
+  \& \node [exit] (exit) {}; \& \\
+  };
+  \graph [use existing nodes] {
+    entry               -> [selected on=<{2}>] magenta source;
+    entry               -> [selected on=<{4,10}>] cyan source;
+    magenta source      -> [selected on=<{6,12}>] magenta cyan target;
+    cyan source         -> [selected on=<{6,12}>] magenta cyan target;
+    cyan source         -> [selected on=<{8}>] yellow source;
+    magenta cyan target -> [selected on=<{14}>] exit;
+    yellow source       -> [selected on=<{14}>] exit;
+  };
+
+
+  \path [selected on=<{4,10}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);
+  \invisible<1->{\path [selected on=<{1-}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);}
+  \node [left=0 of magenta source] (M) {M};
+  \node [right=0 of cyan source] (C) {C};
+  \node [right=0 of yellow source] (Y) {Y};
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\uncover<1->{
 \begin{tikzpicture}[remember picture,overlay]
   \node [shift={(-1.2cm,1.2cm)}] at (current page.south east) {
 
     \begin{tikzpicture}[scale=0.2,remember picture,overlay]
       % Source: https://texample.net/tikz/examples/rgb-color-mixing/
+      % Adapted for CMYK
 
-      % Draw three spotlights of the primary colors red, green and blue
-      % (they are primary in an additive colorspace where light are mixed)
-      \draw [draw=none, fill=red] (90:1.5) circle (2);
-      \draw [draw=none, fill=green] (-30:1.5) circle (2);
-      \draw [draw=none, fill=blue] (210:1.5) circle (2);
+      % Draw three spotlights of the primary colors cyan, magenta and yellow
+      % (they are primary in a subtractive colorspace where inks are mixed)
+      \draw [draw=none, fill=cyan!75] (90:1.5) circle (2);
+      \draw [draw=none, fill=yellow!75] (-30:1.5) circle (2);
+      \draw [draw=none, fill=magenta!75] (210:1.5) circle (2);
 
       % Draw areas where two of the three primary colors are overlapping.
-      % These areas are the secondary colors yellow, cyan and magenta.
-      \begin{scope} % red + green = yellow
+      % These areas are the secondary colors red, green and blue.
+      \begin{scope} % cyan + yellow = green
         \clip (90:1.5) circle(2);
-        \draw [draw=none, fill=yellow] (-30:1.5) circle (2);
-      \end{scope} % blue + red = magenta
+        \draw [draw=none, fill=green!75] (-30:1.5) circle (2);
+      \end{scope} % magenta + cyan = blue
       \begin{scope}
         \clip (210:1.5) circle(2);
-        \draw [draw=none, fill=magenta] (90:1.5) circle (2);
+        \draw [draw=none, fill=blue!75] (90:1.5) circle (2);
       \end{scope}
-      \begin{scope} % green + blue = cyan
+      \begin{scope} % yellow + magenta = red
         \clip (-30:1.5) circle(2);
-        \draw [draw=none, fill=cyan] (210:1.5) circle (2);
+        \draw [draw=none, fill=red!75] (210:1.5) circle (2);
       \end{scope}
 
       % Draw the center area which consists of all the primary colors.
-      \begin{scope} % red + green + blue = white
+      \begin{scope} % cyan + magenta + yellow = black
         \clip (90:1.5) circle(2);
         \clip (210:1.5) circle(2);
-        \draw [draw=none, fill=white] (-30:1.5) circle (2);	
+        \draw [draw=none, fill=black!75] (-30:1.5) circle (2);	
       \end{scope}
       % Draw main color letters
-      \node at ( 90:2) {\footnotesize R};
-      \node at (-30:2) {\footnotesize G};
-      \node at (210:2) {\footnotesize B};
+      \node at ( 90:2) {\footnotesize C};
+      \node at (-30:2) {\footnotesize Y};
+      \node at (210:2) {\footnotesize M};
     \end{tikzpicture}
 
   };
