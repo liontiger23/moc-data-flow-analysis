@@ -40,7 +40,30 @@ subtitle: (Data-flow analysis)
 ::::::: columns
 ::::: {.column width=48%}
 
-# 
+```{=latex}
+\uncover<+->{
+```
+
+# Окружение потокового анализа
+
+- Потоковый граф $G = \langle V, E \rangle$
+
+```{=latex}
+\uncover<+->{
+```
+
+# TODO
+
+- TODO
+
+
+```{=latex}
+}
+```
+
+```{=latex}
+}
+```
 
 :::::
 \vline
@@ -61,17 +84,17 @@ subtitle: (Data-flow analysis)
     level distance=3em,
     every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
     selected on/.style={alt=####1{thick}{}},
-    entry/.style={selected on=<{2,4,10}>},
-    magenta source/.style={magenta,selected on=<{2,6,12}>,
-      background fill=magenta!50,fill on=<3->},
-    cyan source/.style={cyan,selected on=<{4,6,8,10,12}>,
-      alt=<1-10>{background fill=cyan!50}{background fill=green!50},fill on=<5->},
-    magenta cyan target/.style={selected on=<{6,14}>,
-      alt=<1-12>{background fill=blue!50}{background fill=black!50},fill on=<7->},
-    yellow source/.style={yellow,selected on=<{4,8,10,14}>,
-      alt=<1-8>{background fill=yellow!50}{background fill=green!50},fill on=<9->},
-    exit/.style={selected on=<{14}>,
-      background fill=black!50,fill on=<15>},
+    entry/.style={selected on=<{.(2),.(4),.(10)}>},
+    magenta source/.style={magenta,selected on=<{.(2),.(6),.(12)}>,
+      background fill=magenta!50,fill on=<.(3)->},
+    cyan source/.style={cyan,selected on=<{.(4),.(6),.(8),.(10),.(12)}>,
+      alt=<.(1)-.(10)>{background fill=cyan!50}{background fill=green!50},fill on=<.(5)->},
+    magenta cyan target/.style={selected on=<{.(6),.(14)}>,
+      alt=<.(1)-.(12)>{background fill=blue!50}{background fill=black!50},fill on=<.(7)->},
+    yellow source/.style={yellow,selected on=<{.(4),.(8),.(10),.(14)}>,
+      alt=<.(1)-.(8)>{background fill=yellow!50}{background fill=green!50},fill on=<.(9)->},
+    exit/.style={selected on=<{.(14)}>,
+      background fill=black!50,fill on=<.(15)>},
   ]
 
   \matrix {
@@ -81,18 +104,18 @@ subtitle: (Data-flow analysis)
   \& \node [exit] (exit) {}; \& \\
   };
   \graph [use existing nodes] {
-    entry               -> [selected on=<{2}>] magenta source;
-    entry               -> [selected on=<{4,10}>] cyan source;
-    magenta source      -> [selected on=<{6,12}>] magenta cyan target;
-    cyan source         -> [selected on=<{6,12}>] magenta cyan target;
-    cyan source         -> [selected on=<{8}>] yellow source;
-    magenta cyan target -> [selected on=<{14}>] exit;
-    yellow source       -> [selected on=<{14}>] exit;
+    entry               -> [selected on=<{.(2)}>] magenta source;
+    entry               -> [selected on=<{.(4),.(10)}>] cyan source;
+    magenta source      -> [selected on=<{.(6),.(12)}>] magenta cyan target;
+    cyan source         -> [selected on=<{.(6),.(12)}>] magenta cyan target;
+    cyan source         -> [selected on=<{.(8)}>] yellow source;
+    magenta cyan target -> [selected on=<{.(14)}>] exit;
+    yellow source       -> [selected on=<{.(14)}>] exit;
   };
 
 
-  \path [selected on=<{4,10}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);
-  \invisible<1->{\path [selected on=<{1-}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);}
+  \path [selected on=<{.(4),.(10)}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);
+  \invisible<0->{\path [selected on=<{0-}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);}
   \node [left=0 of magenta source] (M) {M};
   \node [right=0 of cyan source] (C) {C};
   \node [right=0 of yellow source] (Y) {Y};
