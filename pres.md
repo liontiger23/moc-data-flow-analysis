@@ -6,7 +6,7 @@ subtitle: (Data-flow analysis)
 # Потоковый анализ
 
 ::::::: columns
-::::: {.column width=48%}
+::::: {.column width=50%}
 
 ## Потоковый анализ (Data flow analysis)
 
@@ -38,24 +38,141 @@ subtitle: (Data-flow analysis)
 # Пример
 
 ::::::: columns
-::::: {.column width=48%}
+::::: {.column width=50%}
 
 ```{=latex}
-\uncover<+->{
+\uncover<+(1)->{
 ```
+
+:::: {.block}
 
 # Окружение потокового анализа
 
-- Потоковый граф $G = \langle V, E \rangle$
+\up
+- Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
+- Направление анализа $D = \{ \downarrow, \uparrow \}$
+- Полурешетка свойств $\langle L, \wedge \rangle$
+- Преобразователи свойств $PT_{v \in V}\colon L \to L$
+- Начальное значение $in(v_{entry})$ или $out(v_{exit})$
+
+::::
+
+\vspace{1em}
+\hrule
 
 ```{=latex}
-\uncover<+->{
+\uncover<+(1)->{
 ```
 
-# TODO
+```{=latex}
+\uncover<+>{}
+```
 
-- TODO
+```{=latex}
+\begin{minipage}[c][0.4\textheight][c]{\columnwidth}
+```
 
+```{=latex}
+
+\newcommand{\entrynode}{.(0)-.(1)}
+\newcommand{\magentanode}{.(2)-.(3)}
+\newcommand{\cyannode}{.(4)-.(5),.(10)-.(11)}
+\newcommand{\yellownode}{.(8)-.(9)}
+\newcommand{\meetnode}{.(6)-.(7),.(12)-.(13)}
+\newcommand{\exitnode}{.(14)-.(15)}
+
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    tiny block/.style={block,scale=0.5},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+    visible on/.style={alt=####1{}{invisible}},
+    left input/.style={
+      visible on=<{\cyannode,\meetnode,\exitnode}>,
+      alt=<{\meetnode}>{magenta}{},
+      alt=<{\meetnode}>{background fill=magenta!50,fill}{},
+      alt=<{\exitnode}>{background fill=black!50,fill}{},
+    },
+    middle input/.style={
+      visible on=<{\magentanode,\yellownode}>,
+      alt=<{\yellownode}>{cyan}{},
+      alt=<{.(8)-.(9)}>{background fill=cyan!50,fill}{},
+    },
+    right input/.style={
+      visible on=<{\cyannode,\meetnode,\exitnode}>,
+      alt=<{\cyannode}>{yellow}{},
+      alt=<{\meetnode}>{cyan}{},
+      alt=<{\exitnode}>{yellow}{},
+      alt=<{.(6)-.(7)}>{background fill=cyan!50,fill}{},
+      alt=<{.(10)-.(15)}>{background fill=green!50,fill}{},
+    },
+    in value/.style={
+      alt=<{.(6)-.(7)}>{background fill=blue!50,fill}{},
+      alt=<{.(8)-.(9)}>{background fill=cyan!50,fill}{},
+      alt=<{.(10)-.(11)}>{background fill=green!50,fill}{},
+      alt=<{.(12)-.(15)}>{background fill=black!50,fill}{},
+    },
+    out value/.style={
+      alt=<{\magentanode}>{magenta}{},
+      alt=<{\cyannode}>{cyan}{},
+      alt=<{\yellownode}>{yellow}{},
+      alt=<{.(3)}>{background fill=magenta!50,fill}{},
+      alt=<{.(5),.(10)}>{background fill=cyan!50,fill}{},
+      alt=<{.(7),.(12)}>{background fill=blue!50,fill}{},
+      alt=<{.(9),.(11)}>{background fill=green!50,fill}{},
+      alt=<{.(13),.(15)}>{background fill=black!50,fill}{},
+    },
+    node/.style={out value},
+    transfer/.style={
+      visible on=<{.(1),.(3),.(5),.(7),.(9),.(11),.(13),.(15)}>,
+    },
+    transfer label/.style={
+      visible on=<{\magentanode,\cyannode,\yellownode}>,
+    },
+  ]
+
+  \matrix {
+  \node [left input] (left input) {}; \& \node [middle input] (middle input) {}; \& \node [right input] (right input) {}; \\
+  \& \node [node] (node) {}; \& \\
+  };
+  \graph [use existing nodes] {
+    left   input -> [visible on=<{\cyannode,\meetnode,\exitnode}>] node;
+    middle input -> [visible on=<{\magentanode,\yellownode}>] node;
+    right  input -> [visible on=<{\cyannode,\meetnode,\exitnode}>] node;
+  };
+
+  \node [left=0 of node,visible on=<{\entrynode}>] (entry label) {entry};
+  \node [left=0 of node,visible on=<{\magentanode}>] (M) {M};
+  \node [left=0 of node,visible on=<{\cyannode}>] (C) {C};
+  \node [left=0 of node,visible on=<{\yellownode}>] (Y) {Y};
+  \node [left=0 of node,visible on=<{\exitnode}>] (exit label) {exit};
+
+  \node [left=0 of middle input,visible on=<{\magentanode}>] (middle entry label) {entry};
+  \node [left=0 of left input,visible on=<{\cyannode}>] (left entry label) {entry};
+  \node [left=0 of left input,visible on=<{\meetnode}>] (left M label) {M};
+  \node [right=0 of right input,visible on=<{\meetnode}>] (right C label) {C};
+  \node [right=0 of middle input,visible on=<{\yellownode}>] (middle C label) {C};
+  \node [right=0 of right input,visible on=<{\cyannode,\exitnode}>] (right Y label) {Y};
+
+  \node [at=(middle input),visible on=<{\cyannode,\meetnode,\exitnode}>] (meet) {$\wedge$};
+
+  \node [yshift=1em,right=0.2em of node] (in) {\makebox[0pt][l]{in:}\phantom{out:}};
+  \node [yshift=-1em,right=0.2em of node] (out) {out:};
+
+  \node [right=0em of in,tiny block,in value] (in value) {};
+  \node [right=0em of out,tiny block,out value] (out value) {};
+  \path [draw,transfer] (in value) -- (out value) node [transfer label,midway,yshift=0.2em,xshift=0.8em] {$\wedge$};
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
+```
 
 ```{=latex}
 }
@@ -67,24 +184,23 @@ subtitle: (Data-flow analysis)
 
 :::::
 \vline
-::::: {.column width=48%}
+::::: {.column width=50%}
 
+```{=latex}
+\begin{minipage}[c][0.8\textheight][c]{\columnwidth}
+```
 
 ```{=latex}
 \centering
 \begin{tikzpicture}[
     ->,>=latex,anchor=center,
     every node/.style={inner sep=0.2em,font=\footnotesize},
-    base/.style={minimum width={1em -\pgflinewidth},minimum height={1em - \pgflinewidth},inner sep=0,outer sep=auto},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
     block/.style={n,circle},
-    cold/.style={fill=googlecyan},
-    hot/.style={fill=googlemagenta},
-    sibling distance=3em,
-    level distance=3em,
     every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
     selected on/.style={alt=####1{thick}{}},
-    entry/.style={selected on=<{.(2),.(4),.(10)}>},
+    entry/.style={selected on=<{.(0),.(2),.(4),.(10)}>},
     magenta source/.style={magenta,selected on=<{.(2),.(6),.(12)}>,
       background fill=magenta!50,fill on=<.(3)->},
     cyan source/.style={cyan,selected on=<{.(4),.(6),.(8),.(10),.(12)}>,
@@ -114,13 +230,19 @@ subtitle: (Data-flow analysis)
   };
 
 
-  \path [selected on=<{.(4),.(10)}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);
-  \invisible<0->{\path [selected on=<{0-}>,out=-45,in=45,distance=3em] (yellow source) edge (cyan source);}
+  \path [selected on=<{.(4),.(10)}>,out=-45,in=45,distance=4em] (yellow source) edge (cyan source);
+  \invisible<0->{\path [selected on=<{0-}>,out=-45,in=45,distance=4em] (yellow source) edge (cyan source);}
+  \node [left=0 of entry] (entry label) {entry};
   \node [left=0 of magenta source] (M) {M};
   \node [right=0 of cyan source] (C) {C};
   \node [right=0 of yellow source] (Y) {Y};
+  \node [left=0 of exit] (exit label) {exit};
 
 \end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
 ```
 
 ```{=latex}
