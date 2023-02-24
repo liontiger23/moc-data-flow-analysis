@@ -308,10 +308,10 @@ Describe idea of the algorithm
 ## Формальная модель потокового анализа
 -->
 
-# Полурешетка свойств $\langle L, \wedge \rangle$
+# Полурешетка свойств
 
 ::: columns
-:::: {.column width=50%}
+:::: {.column width=48%}
 
 ## Полурешетка $\langle L, \wedge \rangle$
 
@@ -322,9 +322,9 @@ Describe idea of the algorithm
 - $x \wedge y = y \wedge x$ (*коммутативность*);
 - $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*ассоциативность*).
 
-## Частичный порядок $\langle L, \leq \rangle$: `\uncover<1>{\footnote<1>[frame]{
+## Частичный порядок $\langle L, \leq \rangle$: `\uncover<1->{\footnote<1->[frame]{
 Выполняются ли свойства частичного порядка при таком определении $\leq$ через $\wedge$?
-} \footnote<1>[frame]{
+} \footnote<1->[frame]{
 Можно ли восстановить полурешетку $\langle L, \wedge \rangle$
 имея только частичный порядок $\langle L, \leq \rangle$?
 }}`{=latex}
@@ -335,17 +335,11 @@ $\forall x,y \in L$
 - $x \leq y \Leftrightarrow_{def} x \wedge y = x$;
 - $x < y \Leftrightarrow_{def} x \wedge y = x\ \&\ x \neq y$.
 
-## Свойства полурешеток
-
-\up
-- Обрыв убывающих цепей: $\forall x_1 > x_2 > \dots \exists k : \nexists y \in L : x_k > y$
-- Ограниченность: 
-
-
 \vspace{1em}
 
 ::::
 \vline
+\hfill
 :::: {.column width=48%}
 
 ```{=latex}
@@ -354,16 +348,12 @@ $\forall x,y \in L$
 
 :::::{.block}
 
-## \centering Примеры
+## Свойства полурешеток
 
-- Множество подмножеств $S$  
-  $L = 2^S, \wedge = \cap$ (или $\cup$)
-- Натуральные числа  
-  $L = \mathbb{N}, x \wedge y = min(x, y)$
-- Константые целочисленные значения  
-  $L = \mathbb{Z} \cup \{\top, \bot\}, \bot < \mathbb{Z} < \top$
-- Иерархия типов в программе  
-  $L = Types, x \leq y = x <: y$ (*subtype*)
+\up
+- Обрыв убывающих цепей: $\forall x_1 > x_2 > \dots \exists k : \nexists y \in L : x_k > y$
+- Ограниченность: 
+
 
 :::::
 
@@ -373,6 +363,20 @@ $\forall x,y \in L$
 
 ::::
 :::
+
+
+# Примеры
+
+## 
+
+- Множество подмножеств $S$  
+  $L = 2^S, \wedge = \cap$ (или $\cup$)
+- Натуральные числа  
+  $L = \mathbb{N}, x \wedge y = min(x, y)$
+- Константые целочисленные значения  
+  $L = \mathbb{Z} \cup \{\top, \bot\}, \bot < \mathbb{Z} < \top$
+- Иерархия типов в программе  
+  $L = Types, x \leq y = x <: y$ (*subtype*)
 
 # Потоковые функции
 
