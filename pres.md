@@ -30,7 +30,7 @@ subtitle: (Data-flow analysis)
 \vline
 ::::: {.column width=48%}
 
-## \centering CFG
+## CFG
 
 :::::
 :::::::
@@ -41,7 +41,7 @@ subtitle: (Data-flow analysis)
 ::::: {.column width=50%}
 
 ```{=latex}
-\uncover<+(1)->{
+\gdef \dataflowenv {
 ```
 
 :::: {.block}
@@ -52,10 +52,20 @@ subtitle: (Data-flow analysis)
 - Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
 - Направление анализа $D = \{ \downarrow, \uparrow \}$
 - Полурешетка свойств $\langle L, \wedge \rangle$
-- Преобразователи свойств $PT_{v \in V}\colon L \to L$
+- Потоковые функции $f_{v \in V}\colon L \to L$
 - Начальное значение $in(v_{entry})$ или $out(v_{exit})$
 
 ::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<+(1)->{
+```
+
+\dataflowenv
 
 \vspace{1em}
 \hrule
@@ -300,21 +310,21 @@ subtitle: (Data-flow analysis)
 ::: columns
 :::: {.column width=50%}
 
-## \centering Бинарная операция $\wedge$ (*meet*)
+## Бинарная операция $\wedge$ (*meet*)
 
 \up
 - $x \wedge x = x$ (*идемпотентность*)
 - $x \wedge y = y \wedge x$ (*коммутативность*)
 - $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*ассоциативность*)
 
-## \centering Частичный порядок $\leq$
+## Частичный порядок $\leq$
 
 \up
 - $x \leq x$ (*рефлексивность*)
 - $x \leq y\ \&\ y \leq z \Rightarrow x \leq z$ (*транзитивность*)
 - $x \leq y\ \&\ y \leq x \Rightarrow x = y$ (*антисимметричность*)
 
-## \centering Полурешетка $\langle L, \wedge \rangle$ `\uncover<1->{\footnote<1->[frame]{
+## Полурешетка $\langle L, \wedge \rangle$ `\uncover<1->{\footnote<1->[frame]{
 Выполняются ли свойства частичного порядка при таком определении $\leq$ через $\wedge$?
 } \footnote<1->[frame]{
 Можно ли восстановить полурешетку $\langle L, \wedge \rangle$
@@ -338,34 +348,33 @@ subtitle: (Data-flow analysis)
 
 :::::{.block}
 
-## \centering Свойства полурешеток
+## Свойства полурешеток
 
-\up
-- Ограниченность снизу
+Ограниченность снизу
 \vspace{-1em}
 $$
 \exists \bot \in L : \forall x \in L : \bot \wedge x = \bot\ (\bot \leq x)
 $$
 
-- \vspace{-1em} Ограниченность сверху
+\vspace{-1em} Ограниченность сверху
 \vspace{-1em}
 $$
 \exists \top \in L : \forall x \in L : \top \wedge x = x\ (x \leq \top)
 $$
 
-- \vspace{-1em} Высота полурешетки
+\vspace{-1em} Высота полурешетки
 \vspace{-1em}
 $$
 H_L = max \bigl\{ | x_1 > x_2 > \dots\, \in L | \bigr\}
 $$
 
-- \vspace{-1em} Обрыв убывающих цепей
+\vspace{-1em} Обрыв убывающих цепей
 \vspace{-1em}
 $$
 \forall x_1 > x_2 > \dots\, \in L : \exists k : \nexists y \in L : x_k > y
 $$
 
-- \vspace{-1em} Произведение полурешеток
+\vspace{-1em} Произведение полурешеток
 \vspace{-1em}
 $$
 \begin{aligned}
@@ -397,25 +406,57 @@ $$
 - Иерархия типов в программе  
   $L = Types, x \leq y = x <: y$ (*subtype*)
 
-# Потоковые функции
-
-## Монотонность
-
-## Монотонность на полурешетке
-
-## Дистрибутивность
-
 # Задача потокового анализа
 
-- Потоковый граф
-- Полурешетка свойств
-- Начальная разметка
-- Преобразователи свойств
-  - Семейство монотонных функций
+::::::: columns
+::::: {.column width=50%}
 
-<!--
-На примере reaching definitions
--->
+\dataflowenv
+
+\vspace{1em}
+\hrule
+
+```{=latex}
+\centering
+\begin{minipage}[t]{0.75\columnwidth}
+```
+
+:::: {.block}
+
+## Потоковые функции
+
+Монотонная функция $f$ на $\langle L, \leq \rangle$
+\vspace{-1em}
+$$
+x \leq y \Rightarrow f(x) \leq f(y)
+$$
+
+\vspace{-1em} Монотонная функция $f$ на $\langle L, \wedge \rangle$
+\vspace{-1em}
+$$
+f(x \wedge y) \leq f(x) \wedge f(y)
+$$
+
+\vspace{-1em} Дистрибутивная функция $f$ на $\langle L, \wedge \rangle$
+\vspace{-1em}
+$$
+f(x \wedge y) = f(x) \wedge f(y)
+$$
+
+::::
+
+```{=latex}
+\end{minipage}
+```
+
+:::::
+\vline
+::::: {.column width=50%}
+
+
+:::::
+
+::::::
 
 # Решение задачи потокового анализа
 
