@@ -333,7 +333,7 @@ subtitle: (Data-flow analysis)
 :::: {.column width=46%}
 
 ```{=latex}
-\only<2->{
+\uncover<2->{
 ```
 
 :::::{.block}
