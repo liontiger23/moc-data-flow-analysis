@@ -431,7 +431,9 @@ $$
 x \leq y \Rightarrow f(x) \leq f(y)
 $$
 
-\vspace{-1em} Монотонная функция $f$ на $\langle L, \wedge \rangle$
+\vspace{-1em} Монотонная функция $f$ на $\langle L, \wedge \rangle$ \footnote[frame]{
+Докажите эквивалентность определений монотонной функции на $\langle L, \leq \rangle$ и на $\langle L, \wedge \rangle$.
+}
 \vspace{-1em}
 $$
 f(x \wedge y) \leq f(x) \wedge f(y)
