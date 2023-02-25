@@ -295,52 +295,42 @@ subtitle: (Data-flow analysis)
 :::::
 :::::::
 
-
-<!--
-Describe idea of the algorithm
-- programs are graphs
-- some properties are simple to calculate (reachable nodes)
-- some require transfer of properties down the flow of the graph
-- gen/kill definitions
--->
-
-<!--
-## Формальная модель потокового анализа
--->
-
 # Полурешетка свойств
 
 ::: columns
-:::: {.column width=48%}
+:::: {.column width=50%}
 
-## Полурешетка $\langle L, \wedge \rangle$
-
-Бинарная операция $\wedge$ (*meet*): $\forall x,y,z \in L$
+## \centering Бинарная операция $\wedge$ (*meet*)
 
 \up
-- $x \wedge x = x$ (*идемпотентность*);
-- $x \wedge y = y \wedge x$ (*коммутативность*);
-- $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*ассоциативность*).
+- $x \wedge x = x$ (*идемпотентность*)
+- $x \wedge y = y \wedge x$ (*коммутативность*)
+- $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*ассоциативность*)
 
-## Частичный порядок $\langle L, \leq \rangle$: `\uncover<1->{\footnote<1->[frame]{
+## \centering Частичный порядок $\leq$
+
+\up
+- $x \leq x$ (*рефлексивность*)
+- $x \leq y\ \&\ y \leq z \Rightarrow x \leq z$ (*транзитивность*)
+- $x \leq y\ \&\ y \leq x \Rightarrow x = y$ (*антисимметричность*)
+
+## \centering Полурешетка $\langle L, \wedge \rangle$ `\uncover<1->{\footnote<1->[frame]{
 Выполняются ли свойства частичного порядка при таком определении $\leq$ через $\wedge$?
 } \footnote<1->[frame]{
 Можно ли восстановить полурешетку $\langle L, \wedge \rangle$
 имея только частичный порядок $\langle L, \leq \rangle$?
 }}`{=latex}
 
-$\forall x,y \in L$
-
 \up
-- $x \leq y \Leftrightarrow_{def} x \wedge y = x$;
-- $x < y \Leftrightarrow_{def} x \wedge y = x\ \&\ x \neq y$.
+- $x \leq y \Leftrightarrow_{def} x \wedge y = x$
+- $x < y \Leftrightarrow_{def} x \wedge y = x\ \&\ x \neq y$
 
 \vspace{1em}
 
 ::::
 \vline
 \hfill
-:::: {.column width=48%}
+:::: {.column width=46%}
 
 ```{=latex}
 \only<2->{
@@ -348,12 +338,41 @@ $\forall x,y \in L$
 
 :::::{.block}
 
-## Свойства полурешеток
+## \centering Свойства полурешеток
 
 \up
-- Обрыв убывающих цепей: $\forall x_1 > x_2 > \dots \exists k : \nexists y \in L : x_k > y$
-- Ограниченность: 
+- Ограниченность снизу
+\vspace{-1em}
+$$
+\exists \bot \in L : \forall x \in L : \bot \wedge x = \bot\ (\bot \leq x)
+$$
 
+- \vspace{-1em} Ограниченность сверху
+\vspace{-1em}
+$$
+\exists \top \in L : \forall x \in L : \top \wedge x = x\ (x \leq \top)
+$$
+
+- \vspace{-1em} Высота полурешетки
+\vspace{-1em}
+$$
+H_L = max \bigl\{ | x_1 > x_2 > \dots\, \in L | \bigr\}
+$$
+
+- \vspace{-1em} Обрыв убывающих цепей
+\vspace{-1em}
+$$
+\forall x_1 > x_2 > \dots\, \in L : \exists k : \nexists y \in L : x_k > y
+$$
+
+- \vspace{-1em} Произведение полурешеток
+\vspace{-1em}
+$$
+\begin{aligned}
+\langle A, \wedge_A \rangle \times \langle B, \wedge_B \rangle &= \langle A \times B, \wedge \rangle, \\
+(a, b) \wedge (a', b') &= (a \wedge_A a', b \wedge_B b')
+\end{aligned}
+$$
 
 :::::
 
