@@ -455,6 +455,35 @@ $$
 \vline
 ::::: {.column width=50%}
 
+```{=latex}
+\centering
+\begin{minipage}[t]{0.85\columnwidth}
+```
+
+:::: {.block}
+
+## Система потоковых уравнений
+
+\vspace{-1.5em}
+$$
+\begin{aligned}
+&in(v_{entry}) \in L \\
+&in(v) = \bigwedge_{x \in pred_v} out(x) \\
+&out(v) = f_v(in(v))
+\end{aligned}
+\quad\text{или}\quad
+\begin{aligned}
+&out(v_{exit}) \in L \\
+&out(v) = \bigwedge_{x \in succ_v} in(x) \\
+&in(v) = f_v(out(v))
+\end{aligned}
+$$
+
+::::
+
+```{=latex}
+\end{minipage}
+```
 
 :::::
 
