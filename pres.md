@@ -50,7 +50,7 @@ subtitle: (Data-flow analysis)
 
 \up
 - Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
-- Направление анализа $D = \{ \downarrow, \uparrow \}$
+- Направление анализа $D \in \{ \downarrow, \uparrow \}$
 - Полурешетка свойств $\langle L, \wedge \rangle$
 - Потоковые функции $f_{v \in V}\colon L \to L$
 - Начальное значение $in(v_{entry})$ или $out(v_{exit})$
@@ -457,27 +457,84 @@ $$
 
 ```{=latex}
 \centering
-\begin{minipage}[t]{0.85\columnwidth}
+\begin{minipage}[t]{0.9\columnwidth}
 ```
 
 :::: {.block}
 
 ## Система потоковых уравнений
 
-\vspace{-1.5em}
+\up
+```{=latex}
+\begin{minipage}[t]{0.49\columnwidth}
+\hfill$D=\downarrow$
+\centering
+\vspace{-1em}
 $$
 \begin{aligned}
 &in(v_{entry}) \in L \\
 &in(v) = \bigwedge_{x \in pred_v} out(x) \\
 &out(v) = f_v(in(v))
 \end{aligned}
-\quad\text{или}\quad
+$$
+\end{minipage}
+\vline
+\begin{minipage}[t]{0.49\columnwidth}
+$\, D=\uparrow$\hfill
+\centering
+\vspace{-1em}
+$$
+\quad
 \begin{aligned}
 &out(v_{exit}) \in L \\
 &out(v) = \bigwedge_{x \in succ_v} in(x) \\
 &in(v) = f_v(out(v))
 \end{aligned}
 $$
+\end{minipage}
+```
+
+::::
+
+\vspace{1em}
+
+:::: {.block}
+
+## Maximum Fixedpoint (MFP)
+
+Наибольшее решение среди всех решений $S$
+
+\up
+```{=latex}
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\vspace{-1.5em}
+$$
+out_S(v) \leq out_{MFP}(v) 
+$$
+\end{minipage}
+\vline
+\begin{minipage}[t]{0.49\columnwidth}
+\centering
+\vspace{-1.5em}
+$$
+\quad
+in_S(v) \leq in_{MFP}(v) 
+$$
+\end{minipage}
+```
+
+::::
+
+\vspace{1em}
+
+:::: {.block}
+
+## Условия сходимости
+
+\up
+- Монотонность потоковых функций $f_v$
+- Полурешетка $\langle L, \wedge \rangle$ с обрывом цепей
 
 ::::
 
