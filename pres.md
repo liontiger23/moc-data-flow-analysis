@@ -51,9 +51,9 @@ subtitle: (Data-flow analysis)
 \up
 - Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
 - Направление анализа $D \in \{ \downarrow, \uparrow \}$
-- Полурешетка свойств $\langle L, \wedge \rangle$
-- Потоковые функции $f_{v \in V}\colon L \to L$
-- Начальное значение $in(v_{entry})$ или $out(v_{exit})$
+- Полурешетка свойств $\langle L, \wedge \rangle$ огр. сверху
+- Преобразователи свойств $f_{v \in V}\colon L \to L$
+- Начальная разметка $in_0(v) = out_0(v) = \top$
 
 ::::
 
@@ -423,7 +423,7 @@ $$
 
 :::: {.block}
 
-## Потоковые функции
+## Преобразователи свойств
 
 Монотонная функция $f$ на $\langle L, \leq \rangle$
 \vspace{-1em}
@@ -472,10 +472,11 @@ $$
 \vspace{-1em}
 $$
 \begin{aligned}
-&in(v_{entry}) \in L \\
-&in(v) = \bigwedge_{x \in pred_v} out(x) \\
-&out(v) = f_v(in(v))
+&in_0(v) = out_0(v) = \top \\
+&in_i(v) = \bigwedge_{x \in pred_v} out_i(x) \\
+&out_i(v) = f_v(in_i(v))
 \end{aligned}
+\quad
 $$
 \end{minipage}
 \vline
@@ -486,9 +487,9 @@ $\, D=\uparrow$\hfill
 $$
 \quad
 \begin{aligned}
-&out(v_{exit}) \in L \\
-&out(v) = \bigwedge_{x \in succ_v} in(x) \\
-&in(v) = f_v(out(v))
+&in_0(v) = out_0(v) = \top \\
+&out_i(v) = \bigwedge_{x \in succ_v} in_i(x) \\
+&in_i(v) = f_v(out_i(v))
 \end{aligned}
 $$
 \end{minipage}
@@ -511,6 +512,7 @@ $$
 \vspace{-1.5em}
 $$
 out_S(v) \leq out_{MFP}(v) 
+\quad
 $$
 \end{minipage}
 \vline
@@ -533,7 +535,7 @@ $$
 ## Условия сходимости
 
 \up
-- Монотонность потоковых функций $f_v$
+- Монотонность преобразователей $f_v$
 - Полурешетка $\langle L, \wedge \rangle$ с обрывом цепей
 
 ::::
