@@ -548,6 +548,85 @@ $$
 
 ::::::
 
+# Примеры не сходящегося анализа
+
+:::::: columns
+::::: {.column width=50%}
+
+## Монотонность преобразователей
+
+```{=latex}
+\up
+$$
+\begin{aligned}
+&L = \{T, F\}, F \leq T \\
+&f_{entry} = f_{exit} = id \\
+&f_{loop}(x) = \neg x
+\end{aligned}
+\qquad\quad
+$$
+```
+\vspace{1em}
+
+## Обрыв убывающих цепей
+
+```{=latex}
+\up
+$$
+\begin{aligned}
+&L = \mathbb{R_+} \cup \{\top\}, \wedge = min \quad \\
+&f_{entry}(x) = 1 \\
+&f_{loop}(x) = x / 2 \\
+&f_{exit} = id \\
+\end{aligned}
+$$
+```
+
+:::::
+\vline
+::::: {.column width=50%}
+
+```{=latex}
+\begin{minipage}[c][0.8\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+  ]
+
+  \matrix {
+  \& \node (entry) {}; \& \\
+  \& \node (loop) {}; \& \\
+  \& \node (exit) {}; \& \\
+  };
+  \graph [use existing nodes] {
+    entry -> loop -> exit
+  };
+
+  \draw (loop.south west) to [bend left=120,distance=2.5em] (loop.north west);
+  \node [right=0 of entry] (entry label) {entry};
+  \node [right=0 of loop] (loop label) {loop};
+  \node [right=0 of exit] (exit label) {exit};
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
+```
+
+:::::
+
+::::::
+
+
 # Решение задачи потокового анализа
 
 - MOP
