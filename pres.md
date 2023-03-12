@@ -574,7 +574,7 @@ $$
 \up
 $$
 \begin{aligned}
-&L = \mathbb{R_+} \cup \{\top\}, \wedge = min \quad \\
+&L = \mathbb{R_0^+} \cup \{\top\}, \wedge = min \quad \\
 &f_{entry}(x) = 1 \\
 &f_{loop}(x) = x / 2 \\
 &f_{exit} = id \\
