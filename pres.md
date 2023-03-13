@@ -417,6 +417,56 @@ $$
 \hrule
 
 ```{=latex}
+\begin{minipage}[t][0.45\textheight][t]{\columnwidth}
+```
+
+```{=latex}
+\only<1-2>{
+\begin{minipage}[c][0.4\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    tiny block/.style={block,scale=0.5},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+  ]
+
+  \matrix {
+  \node (left input) {}; \& \node [draw=none] (middle input) {}; \& \node (right input) {}; \\
+  \& \node (node) {v}; \& \\
+  \node (left output) {}; \& \node [draw=none] (middle output) {}; \& \node (right output) {}; \\
+  };
+  \graph [use existing nodes] {
+    {left input, right input} -> node -> {left output, right output}
+  };
+
+  \node [at=(middle input)] (input dots) {$\dots$};
+  \node [at=(middle output)] (output dots) {$\dots$};
+
+  \node [above=0.5em of input dots] (input name) {$pred_v$};
+  \node [below=0.5em of output dots] (output name) {$succ_v$};
+
+  \node [yshift=1em,right=0.2em of node] (in) {\makebox[\widthof{$out$}][c]{$in$}};
+  \node [yshift=-1em,right=0.2em of node] (out) {$out$};
+
+  \path [draw] (in) -- (out) node [midway,yshift=0.2em,xshift=0.8em] {$f_v$};
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
+}
+```
+
+```{=latex}
+\uncover<3->{
 \centering
 \begin{minipage}[t]{0.75\columnwidth}
 ```
@@ -426,26 +476,34 @@ $$
 ## Преобразователи свойств
 
 Монотонная функция $f$ на $\langle L, \leq \rangle$
-\vspace{-1em}
+
+\vspace{-1.5em}
 $$
 x \leq y \Rightarrow f(x) \leq f(y)
 $$
 
-\vspace{-1em} Монотонная функция $f$ на $\langle L, \wedge \rangle$ \footnote[frame]{
+Монотонная функция $f$ на $\langle L, \wedge \rangle$ \footnote<3->[frame]{
 Докажите эквивалентность определений монотонной функции на $\langle L, \leq \rangle$ и на $\langle L, \wedge \rangle$.
 }
-\vspace{-1em}
+
+\vspace{-1.5em}
 $$
 f(x \wedge y) \leq f(x) \wedge f(y)
 $$
 
-\vspace{-1em} Дистрибутивная функция $f$ на $\langle L, \wedge \rangle$
-\vspace{-1em}
+Дистрибутивная функция $f$ на $\langle L, \wedge \rangle$
+
+\vspace{-1.5em}
 $$
 f(x \wedge y) = f(x) \wedge f(y)
 $$
 
 ::::
+
+```{=latex}
+\end{minipage}
+}
+```
 
 ```{=latex}
 \end{minipage}
@@ -458,6 +516,10 @@ $$
 ```{=latex}
 \centering
 \begin{minipage}[t]{0.9\columnwidth}
+```
+
+```{=latex}
+\uncover<2->{
 ```
 
 :::: {.block}
@@ -539,6 +601,10 @@ $$
 - Полурешетка $\langle L, \wedge \rangle$ с обрывом цепей
 
 ::::
+
+```{=latex}
+}
+```
 
 ```{=latex}
 \end{minipage}
