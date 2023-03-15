@@ -439,7 +439,7 @@ $$
 
   \matrix {
   \node (left input) {}; \& \node [draw=none] (middle input) {}; \& \node (right input) {}; \\
-  \& \node (node) {v}; \& \\
+  \& \node (node) {$v$}; \& \\
   \node (left output) {}; \& \node [draw=none] (middle output) {}; \& \node (right output) {}; \\
   };
   \graph [use existing nodes] {
