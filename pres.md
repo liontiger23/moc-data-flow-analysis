@@ -563,7 +563,7 @@ $$
 
 :::: {.block}
 
-## Maximum Fixedpoint (MFP)
+## Maximum Fixed Point (MFP)
 
 Наибольшее решение среди всех решений $S$
 
@@ -693,20 +693,56 @@ $$
 ::::::
 
 
-# Решение задачи потокового анализа
+# Точность решения
 
-- MOP
-- MFP
-  - $\exists MFP$
-  - $\exists! MFP$
-  - $MFP \leq MOP$
-- Теорема Килдалла
-  - дистрибутивность преобразователей $\Rightarrow MFP = MOP$
-- Неразрешимость
+:::::: columns
 
-<!--
-Привести контрпримеры
--->
+::::: {.column width=50%}
+
+## Meet Over Paths (MOP) `\footnote[frame]{
+Рассмотрен случай нисходящего анализа $D=\downarrow$, для восходящего $D=\uparrow$ рассуждения аналогичны.
+}`{=latex}
+
+
+Точное решение по всем путям $v_{entry} \rightarrow \dots \rightarrow v$
+$$
+out_{MOP}(v) = \bigwedge_{v_{entry} \rightarrow \dots \rightarrow v} f_v(\dots (f_{v_{entry}}(\top)) \dots )
+$$
+
+## Оценка точности MFP `\footnote[frame]{
+Докажите оценку. Может помочь альтернативная запись уравнений MFP в виде \\
+$out_{MFP}(v) = f_v\left(\bigwedge_{x \in pred_v} out_{MFP}(x)\right)$
+}`{=latex}
+
+```{=latex}
+\begin{minipage}[t]{0.49\columnwidth}
+\hfill$D=\downarrow$
+\centering
+\vspace{-1.5em}
+$$
+out_{MFP}(v) \leq out_{MOP}(v)
+\quad
+$$
+\end{minipage}
+\vline
+\begin{minipage}[t]{0.49\columnwidth}
+$\, D=\uparrow$\hfill
+\centering
+\vspace{-1.5em}
+$$
+\quad
+in_{MFP}(v) \leq in_{MOP}(v) 
+$$
+\end{minipage}
+```
+
+:::::
+\vline
+::::: {.column width=50%}
+
+:::::
+
+::::::
 
 # Оценка сложности
 
