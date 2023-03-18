@@ -32,6 +32,42 @@ subtitle: (Data-flow analysis)
 
 ## CFG
 
+```{=latex}
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    tiny block/.style={block,scale=0.5},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+  ]
+
+  \matrix {
+  \node (left input) {$p$}; \& \node [draw=none] (middle input) {}; \& \node (right input) {$q$}; \\
+  \& \node (node) {$v$}; \& \\
+  };
+  \graph [use existing nodes] {
+    {left input, right input} -> node
+  };
+  
+  \node [left=0.2em of left input] (left out) {$out_{MOP}(p) = x$};
+  \node [right=0.2em of right input] (right out) {$out_{MOP}(q) = y$};
+
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
+```
+
+
 :::::
 :::::::
 
@@ -567,7 +603,7 @@ $$
 
 Наибольшее решение среди всех решений $S$
 
-\up
+\vspace{-1em}
 ```{=latex}
 \begin{minipage}[t]{0.49\columnwidth}
 \centering
@@ -699,41 +735,78 @@ $$
 
 ::::: {.column width=50%}
 
+:::: {.block}
+
 ## Meet Over Paths (MOP) `\footnote[frame]{
 Рассмотрен случай нисходящего анализа $D=\downarrow$, для восходящего $D=\uparrow$ рассуждения аналогичны.
 }`{=latex}
 
 
 Точное решение по всем путям $v_{entry} \rightarrow \dots \rightarrow v$
+
+\vspace{-1em}
 $$
 out_{MOP}(v) = \bigwedge_{v_{entry} \rightarrow \dots \rightarrow v} f_v(\dots (f_{v_{entry}}(\top)) \dots )
 $$
 
-## Оценка точности MFP `\footnote[frame]{
-Докажите оценку. Может помочь альтернативная запись уравнений MFP в виде \\
-$out_{MFP}(v) = f_v\left(\bigwedge_{x \in pred_v} out_{MFP}(x)\right)$
-}`{=latex}
+::::
+\vspace{-1em}
+:::: {.block}
 
-```{=latex}
-\begin{minipage}[t]{0.49\columnwidth}
-\hfill$D=\downarrow$
-\centering
+## Оценка точности MFP
+
 \vspace{-1.5em}
 $$
 out_{MFP}(v) \leq out_{MOP}(v)
-\quad
 $$
-\end{minipage}
-\vline
-\begin{minipage}[t]{0.49\columnwidth}
-$\, D=\uparrow$\hfill
+::::
+
+\vspace{1em}
+\hrule
+
+```{=latex}
+\uncover<2->{
+\begin{minipage}[c][0.4\textheight][t]{\columnwidth}
+```
+
+```{=latex}
+\vspace{1.5em}
 \centering
-\vspace{-1.5em}
-$$
-\quad
-in_{MFP}(v) \leq in_{MOP}(v) 
-$$
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\footnotesize},
+    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    tiny block/.style={block,scale=0.5},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+  ]
+
+  \matrix {
+  \node (left input) {$p$}; \& \node [draw=none] (middle input) {}; \& \node (right input) {$q$}; \\
+  \& \node (node) {$v$}; \& \\
+  };
+  \graph [use existing nodes] {
+    {left input, right input} -> node
+  };
+  
+  \node [left=0.2em of left input] (left out) {$out_{MOP}(p) = x$};
+  \node [right=0.2em of right input] (right out) {$out_{MOP}(q) = y$};
+
+  \node [below=0.2em of node] (out) {
+  $\ \quad
+  \uncover<3->{\underbrace{f_v(x \wedge y)}_{\textstyle out_{MFP}(v)}}
+    \uncover<5->{\leq}
+  \uncover<4->{\underbrace{f_v(x) \wedge f_v(x)}_{\textstyle out_{MOP}(v)}}
+  $
+  };
+
+\end{tikzpicture}
+```
+
+```{=latex}
 \end{minipage}
+}
 ```
 
 :::::
