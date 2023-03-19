@@ -760,9 +760,12 @@ $$
 \vspace{-1em}
 :::: {.block}
 
-## Оценка точности MFP
+## Безопасность MFP `\uncover<6->{\footnote<6->[frame]{
+В случае дистрибутивных преобразователей MFP всегда точно --- $out_{MFP}(v) = out_{MOP}(v)$.
+}}`{=latex}
 
-\vspace{-1.5em}
+
+\vspace{-1em}
 $$
 out_{MFP}(v) \leq out_{MOP}(v)
 $$
@@ -777,7 +780,7 @@ $$
 ```
 
 ```{=latex}
-\vspace{1.5em}
+\vspace{1.2em}
 \centering
 \begin{tikzpicture}[
     ->,>=latex,anchor=center,
@@ -819,6 +822,71 @@ $$
 :::::
 \vline
 ::::: {.column width=50%}
+
+```{=latex}
+\uncover<7->{
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\vspace{1.5em}
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    tiny block/.style={block,scale=0.5},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+  ]
+
+  \cfg
+
+  \newcommand{\arr}[7][]{
+  \node [####1] (label) {
+  $
+  \arraycolsep=0.2em\def\arraystretch{1.1}
+  \begin{array}{cccc}
+                       & x     & y     & z     \\ \hline
+    {\scriptstyle MFP} & ####2 & ####3 & ####4 \\
+    {\scriptstyle MOP} & ####5 & ####6 & ####7
+  \end{array}
+  $
+  };
+  }
+
+  \uncover<8->{
+
+  \arr[right=0.2em of entry.north east]
+    {\top}{\top}{\top}
+    {\top}{\top}{\top}
+
+  \arr[left=0.2em of left,yshift=1.3em]
+    {1}{2}{\top}
+    {1}{2}{\top}
+
+  \arr[right=0.2em of right,yshift=1.3em]
+    {2}{1}{\top}
+    {2}{1}{\top}
+
+  \arr[right=0.2em of merge point.north east]
+    {\bot}{\bot}{\bot}
+    {\bot}{\bot}{3}
+
+  \arr[right=0.2em of exit.north east]
+    {\bot}{\bot}{\bot}
+    {\bot}{\bot}{3}
+
+  }
+
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
+}
+```
 
 :::::
 
