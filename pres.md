@@ -8,7 +8,7 @@ subtitle: (Data-flow analysis)
 ::::::: columns
 ::::: {.column width=50%}
 
-## Потоковый анализ (Data flow analysis)
+## Потоковый анализ
 
 \up
 - Статический
@@ -21,7 +21,7 @@ subtitle: (Data-flow analysis)
 
 \up
 - Reaching definitions (use-def links)
-- Liveness analysis
+- Live-variable analysis
 - Constant propagation
 - Constant subexpression elimination
 - Dead code elimination
@@ -30,7 +30,7 @@ subtitle: (Data-flow analysis)
 \vline
 ::::: {.column width=48%}
 
-## CFG
+## Control-flow graph
 
 ```{=latex}
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
@@ -736,6 +736,12 @@ $$
 ::::::
 
 
+<!-- TODO
+# Оценка сложности
+
+Topsort ??
+-->
+
 # Точность решения
 
 :::::: columns
@@ -892,9 +898,150 @@ $$
 
 ::::::
 
-# Оценка сложности
+# Потоковый анализ программ
 
-Topsort ??
+:::::: columns
+
+::::: {.column width=54%}
+
+```{=latex}
+\begin{minipage}[c][0.87\textheight][t]{\columnwidth}
+```
+
+```{=latex}
+\uncover<1->{
+```
+
+:::: {.block}
+
+## Control-flow graph
+
+- $CFG = \langle B, E, entry, exit \rangle$
+- Каждый блок $b \in B$ содержит одну операцию
+- $V$ --- множество переменных программы
+- $def_v \subseteq B$ --- множество *присваиваний* в переменную $v \in V$ (напр. `v = 3`)
+- $use_v \subseteq B$ --- множество *использований* переменной $v \in V$ (напр. `x = y + v`)
+
+::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<4->{
+```
+
+\vspace{1em}
+\hrule
+\vspace{1em}
+
+:::::::: columns
+
+::::::: {.column width=48%}
+
+:::: {.block}
+
+## Reaching definitions
+
+\vspace{-2em}
+
+$$
+\begin{aligned}
+&\quad L = 2^B, \wedge = \cup, D = \downarrow \\
+&\begin{array}{c|cc}
+     b & \in def_v & \notin def_v \\ \hline
+ gen_b & \{b\}       & \emptyset \\
+kill_b & def_v       & \emptyset 
+\end{array}
+\end{aligned}
+$$
+
+::::
+
+:::::::
+
+::::::: {.column width=52%}
+
+:::: {.block}
+
+## Live-variable analysis
+
+\vspace{-2em}
+
+$$
+\begin{aligned}
+&\quad L = 2^V, \wedge = \cup, D = \uparrow \\
+&\begin{array}{c|l}
+       & \\ \hline
+ gen_b & \{v\ |\ b \in use_v \} \\
+kill_b & \{v\ |\ b \in def_v \} 
+\end{array}
+\end{aligned}
+$$
+
+::::
+
+:::::::
+
+::::::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\end{minipage}
+```
+
+:::::
+\vline
+::::: {.column width=46%}
+
+```{=latex}
+\uncover<2->{
+```
+
+:::: {.block}
+
+## Gen-Kill формализм
+
+\up
+- $L = 2^S, \wedge = \cup \text{ или } \cap$
+- $f_b(x) = gen_b \cup (x \setminus kill_b)$
+- $gen_b$ --- свойства порождаемые блоком $b$
+- $kill_b$ --- свойства убиваемые блоком $b$
+
+::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<3->{
+```
+
+:::: {.block}
+
+## Свойства
+
+\up
+- $\langle L, \wedge \rangle$ --- конечная полурешетка
+- $f_b$ --- дистрибутивные функции `\only<3->{\footnote<3->[frame]{
+Докажите дистрибутивность $f_b$ в gen-kill форме.
+}}`{=latex}
+- Анализ *всегда* сходится к точному решению
+
+::::
+
+```{=latex}
+}
+```
+
+:::::
+
+::::::
 
 # {.plain}
 
