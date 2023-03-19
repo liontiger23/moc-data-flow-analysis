@@ -37,29 +37,36 @@ subtitle: (Data-flow analysis)
 ```
 
 ```{=latex}
-\centering
-\begin{tikzpicture}[
-    ->,>=latex,anchor=center,
-    every node/.style={inner sep=0.2em,font=\footnotesize},
-    base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
+\gdef \cfg {
+\begin{scope}[
+    ->,>=latex,
+    every node/.style={font=\footnotesize\ttfamily,align=left},
+    base/.style={minimum width={4em},minimum height={2em},inner sep=1em,outer sep=auto},
     n/.style={base,draw,solid},
-    block/.style={n,circle},
+    block/.style={n,rectangle},
     tiny block/.style={block,scale=0.5},
-    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={block}},
+    large block/.style={block,minimum width=7em},
+    every matrix/.style={row sep=1.5em,column sep=-1.5em,ampersand replacement=\&,every node/.style={block}},
   ]
 
   \matrix {
-  \node (left input) {$p$}; \& \node [draw=none] (middle input) {}; \& \node (right input) {$q$}; \\
-  \& \node (node) {$v$}; \& \\
+  \& \node [large block] (entry) {entry}; \& \\
+  \node (left) {x = 1\\y = 2}; \& \& \node (right) {x = 2\\y = 1}; \\
+  \& \node [large block] (merge point) {z = x + y}; \& \\
+  \& \node [large block] (exit) {ret(z)}; \& \\
   };
   \graph [use existing nodes] {
-    {left input, right input} -> node
+    entry -> {left, right} -> merge point -> exit
   };
-  
-  \node [left=0.2em of left input] (left out) {$out_{MOP}(p) = x$};
-  \node [right=0.2em of right input] (right out) {$out_{MOP}(q) = y$};
 
+\end{scope}
+}
+```
 
+```{=latex}
+\centering
+\begin{tikzpicture}
+  \cfg
 \end{tikzpicture}
 ```
 
