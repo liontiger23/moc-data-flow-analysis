@@ -17,7 +17,7 @@ subtitle: (Data-flow analysis)
 - Вычисление свойств исполнения программы
 - Единая формальная модель и теория
 
-## Примеры
+## Применение
 
 \up
 - Reaching definitions (use-def links)
@@ -29,8 +29,6 @@ subtitle: (Data-flow analysis)
 :::::
 \vline
 ::::: {.column width=48%}
-
-## Control-flow graph
 
 ```{=latex}
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
@@ -1037,6 +1035,50 @@ $$
 
 ```{=latex}
 }
+```
+
+:::::
+
+::::::
+
+# Заключение
+
+:::::: columns
+
+::::: {.column width=48%}
+
+## Достоинства
+
+\up
+- Глобальный статический анализ
+- Универсальная теоретическая модель
+- Простота реализации
+- gen-kill формализм гарантирует сходимость и точность
+
+## Недостатки
+
+\up
+- Нет инкрементальности
+- Анализы не комбинируются эффективно
+- Не всегда удается гарантировать сходимость и точность
+
+:::::
+\vline
+::::: {.column width=48%}
+
+```{=latex}
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\centering
+\begin{tikzpicture}
+  \cfg
+\end{tikzpicture}
+```
+
+```{=latex}
+\end{minipage}
 ```
 
 :::::
