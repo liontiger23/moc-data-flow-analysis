@@ -903,10 +903,6 @@ $$
 ::::: {.column width=54%}
 
 ```{=latex}
-\begin{minipage}[c][0.87\textheight][t]{\columnwidth}
-```
-
-```{=latex}
 \uncover<1->{
 ```
 
@@ -914,6 +910,7 @@ $$
 
 ## Control-flow graph
 
+\up
 - $CFG = \langle B, E, entry, exit \rangle$
 - Каждый блок $b \in B$ содержит одну операцию
 - $V$ --- множество переменных программы
@@ -988,13 +985,13 @@ $$
 }
 ```
 
-```{=latex}
-\end{minipage}
-```
-
 :::::
 \vline
 ::::: {.column width=46%}
+
+```{=latex}
+\begin{minipage}[c][0.7\textheight][t]{\columnwidth}
+```
 
 ```{=latex}
 \uncover<2->{
@@ -1004,7 +1001,6 @@ $$
 
 ## Gen-Kill формализм
 
-\up
 - $L = 2^S, \wedge = \cup \text{ или } \cap$
 - $f_b(x) = gen_b \cup (x \setminus kill_b)$
 - $gen_b$ --- свойства порождаемые блоком $b$
@@ -1026,7 +1022,7 @@ $$
 
 \up
 - $\langle L, \wedge \rangle$ --- конечная полурешетка
-- $f_b$ --- дистрибутивные функции `\only<3->{\footnote<3->[frame]{
+- $f_b$ --- дистрибутивные функции `\only<3->{\stepcounter{footnote}\footnote<3->{
 Докажите дистрибутивность $f_b$ в gen-kill форме.
 }}`{=latex}
 - Анализ *всегда* сходится к точному решению
@@ -1035,6 +1031,10 @@ $$
 
 ```{=latex}
 }
+```
+
+```{=latex}
+\end{minipage}
 ```
 
 :::::

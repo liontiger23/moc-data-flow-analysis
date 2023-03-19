@@ -39,7 +39,10 @@
 %%%%%%%
 
 %% Set numbered footnotes in minipages
-\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+%\renewcommand{\thempfootnote}{\arabic{mpfootnote}}
+%% Alternative: also use global numbering for footnotes in minipages
+%% Note: needs \stepcounter{footnote} before use
+\renewcommand{\thempfootnote}{\arabic{footnote}}
 
 %% Do not number tables
 %\captionsetup[table]{labelformat=empty}
