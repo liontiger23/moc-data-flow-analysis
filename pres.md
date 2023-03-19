@@ -49,12 +49,13 @@ subtitle: (Data-flow analysis)
 
   \matrix {
   \& \node [large block] (entry) {entry}; \& \\
-  \node (left) {x = 1\\y = 2}; \& \& \node (right) {x = 2\\y = 1}; \\
+  \node (left top) {x = 1}; \& \& \node (right top) {x = 2}; \\
+  \node (left bot) {y = 2}; \& \& \node (right bot) {y = 1}; \\
   \& \node [large block] (merge point) {z = x + y}; \& \\
   \& \node [large block] (exit) {ret(z)}; \& \\
   };
   \graph [use existing nodes] {
-    entry -> {left, right} -> merge point -> exit
+    entry -> {left top -> left bot, right top -> right bot} -> merge point -> exit
   };
 
 \end{scope}
@@ -866,11 +867,19 @@ $$
     {\top}{\top}{\top}
     {\top}{\top}{\top}
 
-  \arr[left=0.2em of left,yshift=1.3em]
+  \arr[left=0.2em of left top.north west]
+    {1}{\top}{\top}
+    {1}{\top}{\top}
+
+  \arr[left=0.2em of left bot.north west]
     {1}{2}{\top}
     {1}{2}{\top}
 
-  \arr[right=0.2em of right,yshift=1.3em]
+  \arr[right=0.2em of right top.north east]
+    {2}{\top}{\top}
+    {2}{\top}{\top}
+
+  \arr[right=0.2em of right bot.north east]
     {2}{1}{\top}
     {2}{1}{\top}
 
