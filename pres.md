@@ -479,26 +479,87 @@ $$
 
 ::::::: columns
 
-:::::: {.column width=50%}
+:::::: {.column width=45%}
 
 ```{=latex}
 \begin{minipage}[t][0.7\textheight][t]{\columnwidth}
 ```
 
+```{=latex}
+\uncover<1->{
+```
+
 :::: {.block}
 
-## 
+## Множество подмножеств $S$
 
-- Множество подмножеств $S$  
-  $L = 2^S, \wedge = \cap$ (или $\cup$)
-- Натуральные числа  
-  $L = \mathbb{N}, x \wedge y = min(x, y)$
-- Константые целочисленные значения  
-  $L = \mathbb{Z} \cup \{\top, \bot\}, \bot < \mathbb{Z} < \top$
-- Иерархия типов в программе  
-  $L = Types, x \leq y = x <: y$ (*subtype*)
+\vspace{-1em}
+$$
+L = 2^S, \wedge = \cup \text{ или } \cap
+$$
 
 ::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<8->{
+```
+
+:::: {.block}
+
+## Натуральные числа
+
+\vspace{-1em}
+$$
+L = \mathbb{N}_0 \cup \{\top\}, x \wedge y = min(x, y)
+$$
+
+::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<9->{
+```
+
+:::: {.block}
+
+## Целочисленные константы
+
+\vspace{-1em}
+$$
+L = \mathbb{Z} \cup \{\top, \bot\}, \bot < \mathbb{Z} < \top
+$$
+
+::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\uncover<10->{
+```
+
+:::: {.block}
+
+## Иерархия типов в программе
+
+\vspace{-1em}
+$$
+L = Types, x \leq y \Leftrightarrow x <: y
+$$
+
+::::
+
+```{=latex}
+}
+```
 
 ```{=latex}
 \end{minipage}
@@ -506,24 +567,113 @@ $$
 
 ::::::
 \vline
-:::::: {.column width=50%}
+:::::: {.column width=55%}
 
 ```{=latex}
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
 ```
 
 ```{=latex}
-\only<+-+(1)>{
+\only<2-5>{
+\centering
+\setlength\tabcolsep{0.2em}
+\begin{tabular}{cccc}
+\uncover<2->{
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    every matrix/.style={row sep=1.5em,column sep=-0.5em,ampersand replacement=\&,every node/.style={base}},
+  ]
+
+  \matrix {
+  \& \node (top) {$\top$}; \& \\
+  \& \node (bot) {$\bot$}; \& \\
+  };
+  \graph [use existing nodes] {
+    top -> bot
+  };
+
+  \node [right=0 of top] (top alt) {$= \emptyset$};
+  \node [right=0 of bot] (bot alt) {$= \{A\}$};
+
+\end{tikzpicture}
+}
+&
+\uncover<3->{
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
+  ]
+
+  \matrix {
+  \& \node (top) {$\top$}; \& \\
+  \node (A) {$\{A\}$}; \& \& \node (B) {$\{B\}$}; \\
+  \& \node (bot) {$\bot$}; \& \\
+  };
+  \graph [use existing nodes] {
+    top -> {A, B} -> bot
+  };
+
+  \node [right=0 of top] (top alt) {$= \emptyset$};
+  \node [right=0 of bot] (bot alt) {$= \{A, B\}$};
+
+
+\end{tikzpicture}
+}
+&
+\uncover<4->{
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
+  ]
+
+  \matrix {
+  \& \node (top) {$\top$}; \& \\
+  \node (A) {$\{A\}$}; \& \node (B) {$\{B\}$}; \& \node (C) {$\{C\}$}; \\
+  \node (AB) {$\{A, B\}$}; \& \node (AC) {$\{A, C\}$}; \& \node (BC) {$\{B, C\}$}; \\
+  \& \node (bot) {$\bot$}; \& \\
+  };
+  \graph [use existing nodes] {
+    top -> {A, B, C};
+    {A, B} -> AB;
+    {B, C} -> BC;
+    {A, C} -> AC;
+    {AB, BC, AC} -> bot
+  };
+
+  \node [right=0 of top] (top alt) {$= \emptyset$};
+  \node [right=0 of bot] (bot alt) {$= \{A, B, C\}$};
+
+
+\end{tikzpicture}
+&
+$\dots$
+}
+\end{tabular}
+}
+```
+
+```{=latex}
+\only<6-7>{
+\def\calt{\alt<6>}
 ```
 
 :::: {.block}
 
-## `\alt<.>{CMYK}{RGB}`{=latex}
+## `\calt{CMYK}{RGB}`{=latex}
 
 ```{=latex}
 \vspace{-1em}
 $$
-L = 2^{\{\alt<.>{C, M, Y}{R, G, B}\}}, \wedge = \alt<.>{\cup}{\cap}
+L = 2^{\{\calt{C, M, Y}{R, G, B}\}}, \wedge = \calt{\cup}{\cap}
 $$
 ```
 
@@ -560,16 +710,16 @@ $$
     {R, G, B} -> K
   };
 
-  \node [right=0 of W] (W label) {$\top = \alt<.>{\emptyset}{\{R, G, B\}}$};
-  \node [right=0 of R] (R label) {$\{\alt<.>{M, Y}{R}\}$};
-  \node [right=0 of G] (G label) {$\{\alt<.>{C, Y}{G}\}$};
-  \node [right=0 of B] (B label) {$\{\alt<.>{C, M}{B}\}$};
-  \node [right=0 of C] (C label) {$\{\alt<.>{C}{B, G}\}$};
-  \node [right=0 of M] (M label) {$\{\alt<.>{M}{B, R}\}$};
-  \node [right=0 of Y] (Y label) {$\{\alt<.>{Y}{G, R}\}$};
-  \node [right=0 of K] (K label) {$\bot = \alt<.>{\{C, M, Y\}}{\emptyset}$};
+  \node [right=0 of W] (W label) {$\top = \calt{\emptyset}{\{R, G, B\}}$};
+  \node [right=0 of R] (R label) {$\{\calt{M, Y}{R}\}$};
+  \node [right=0 of G] (G label) {$\{\calt{C, Y}{G}\}$};
+  \node [right=0 of B] (B label) {$\{\calt{C, M}{B}\}$};
+  \node [right=0 of C] (C label) {$\{\calt{C}{B, G}\}$};
+  \node [right=0 of M] (M label) {$\{\calt{M}{B, R}\}$};
+  \node [right=0 of Y] (Y label) {$\{\calt{Y}{G, R}\}$};
+  \node [right=0 of K] (K label) {$\bot = \calt{\{C, M, Y\}}{\emptyset}$};
 
-  \node [left=0 of B] (B padding) {\phantom{$\{\alt<.>{M, Y}{G, R}\}$}};
+  \node [left=0 of B] (B padding) {\phantom{$\{\calt{M, Y}{G, R}\}$}};
 
 \end{tikzpicture}
 ```
@@ -577,14 +727,16 @@ $$
 ::::
 
 ```{=latex}
-\begin{tikzpicture}[remember picture,overlay]
-  \node [shift={(-1.2cm,1.2cm)}] at (current page.south east) {
-    \alt<.>{\cmyk}{\rgb}
-  };
-\end{tikzpicture}
+}
 ```
 
 ```{=latex}
+\uncover<5-7>{
+\begin{tikzpicture}[remember picture,overlay]
+  \node [shift={(-1.2cm,1.2cm)}] at (current page.south east) {
+    \alt<5-6>{\cmyk}{\rgb}
+  };
+\end{tikzpicture}
 }
 ```
 
@@ -824,7 +976,10 @@ $$
 ```
 \vspace{1em}
 
-## Обрыв убывающих цепей
+## Обрыв убывающих цепей `\footnote[frame]{
+Может ли быть у полурешетки с обрывом цепей бесконечное количество элементов?
+}`{=latex}
+
 
 ```{=latex}
 \up
