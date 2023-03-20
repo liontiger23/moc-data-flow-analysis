@@ -297,47 +297,88 @@ subtitle: (Data-flow analysis)
 ```
 
 ```{=latex}
+\gdef \rgb {
+\begin{tikzpicture}[scale=0.2,remember picture,overlay]
+  % Source: https://texample.net/tikz/examples/rgb-color-mixing/
+
+  % Draw three spotlights of the primary colors red, green and blue
+  % (they are primary in a additive colorspace where inks are mixed)
+  \draw [draw=none, fill=red!75] (90:1.5) circle (2);
+  \draw [draw=none, fill=blue!75] (-30:1.5) circle (2);
+  \draw [draw=none, fill=green!75] (210:1.5) circle (2);
+
+  % Draw areas where two of the three primary colors are overlapping.
+  % These areas are the secondary colors cyan, magenta and yellow.
+  \begin{scope} % red + blue = magenta
+    \clip (90:1.5) circle(2);
+    \draw [draw=none, fill=magenta!75] (-30:1.5) circle (2);
+  \end{scope} % green + red = yellow
+  \begin{scope}
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=yellow!75] (90:1.5) circle (2);
+  \end{scope}
+  \begin{scope} % blue + green = cyan
+    \clip (-30:1.5) circle(2);
+    \draw [draw=none, fill=cyan!75] (210:1.5) circle (2);
+  \end{scope}
+
+  % Draw the center area which consists of all the primary colors.
+  \begin{scope} % red + green + blue = white
+    \clip (90:1.5) circle(2);
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=white] (-30:1.5) circle (2);	
+  \end{scope}
+  % Draw main color letters
+  \node at ( 90:2) {\footnotesize R};
+  \node at (-30:2) {\footnotesize B};
+  \node at (210:2) {\footnotesize G};
+\end{tikzpicture}
+}
+\gdef \cmyk {
+\begin{tikzpicture}[scale=0.2,remember picture,overlay]
+  % Source: https://texample.net/tikz/examples/rgb-color-mixing/
+  % Adapted for CMYK
+
+  % Draw three spotlights of the primary colors cyan, magenta and yellow
+  % (they are primary in a subtractive colorspace where inks are mixed)
+  \draw [draw=none, fill=cyan!75] (90:1.5) circle (2);
+  \draw [draw=none, fill=yellow!75] (-30:1.5) circle (2);
+  \draw [draw=none, fill=magenta!75] (210:1.5) circle (2);
+
+  % Draw areas where two of the three primary colors are overlapping.
+  % These areas are the secondary colors red, green and blue.
+  \begin{scope} % cyan + yellow = green
+    \clip (90:1.5) circle(2);
+    \draw [draw=none, fill=green!75] (-30:1.5) circle (2);
+  \end{scope} % magenta + cyan = blue
+  \begin{scope}
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=blue!75] (90:1.5) circle (2);
+  \end{scope}
+  \begin{scope} % yellow + magenta = red
+    \clip (-30:1.5) circle(2);
+    \draw [draw=none, fill=red!75] (210:1.5) circle (2);
+  \end{scope}
+
+  % Draw the center area which consists of all the primary colors.
+  \begin{scope} % cyan + magenta + yellow = black
+    \clip (90:1.5) circle(2);
+    \clip (210:1.5) circle(2);
+    \draw [draw=none, fill=black!75] (-30:1.5) circle (2);	
+  \end{scope}
+  % Draw main color letters
+  \node at ( 90:2) {\footnotesize C};
+  \node at (-30:2) {\footnotesize Y};
+  \node at (210:2) {\footnotesize M};
+\end{tikzpicture}
+}
+```
+
+```{=latex}
 \uncover<1->{
 \begin{tikzpicture}[remember picture,overlay]
   \node [shift={(-1.2cm,1.2cm)}] at (current page.south east) {
-
-    \begin{tikzpicture}[scale=0.2,remember picture,overlay]
-      % Source: https://texample.net/tikz/examples/rgb-color-mixing/
-      % Adapted for CMYK
-
-      % Draw three spotlights of the primary colors cyan, magenta and yellow
-      % (they are primary in a subtractive colorspace where inks are mixed)
-      \draw [draw=none, fill=cyan!75] (90:1.5) circle (2);
-      \draw [draw=none, fill=yellow!75] (-30:1.5) circle (2);
-      \draw [draw=none, fill=magenta!75] (210:1.5) circle (2);
-
-      % Draw areas where two of the three primary colors are overlapping.
-      % These areas are the secondary colors red, green and blue.
-      \begin{scope} % cyan + yellow = green
-        \clip (90:1.5) circle(2);
-        \draw [draw=none, fill=green!75] (-30:1.5) circle (2);
-      \end{scope} % magenta + cyan = blue
-      \begin{scope}
-        \clip (210:1.5) circle(2);
-        \draw [draw=none, fill=blue!75] (90:1.5) circle (2);
-      \end{scope}
-      \begin{scope} % yellow + magenta = red
-        \clip (-30:1.5) circle(2);
-        \draw [draw=none, fill=red!75] (210:1.5) circle (2);
-      \end{scope}
-
-      % Draw the center area which consists of all the primary colors.
-      \begin{scope} % cyan + magenta + yellow = black
-        \clip (90:1.5) circle(2);
-        \clip (210:1.5) circle(2);
-        \draw [draw=none, fill=black!75] (-30:1.5) circle (2);	
-      \end{scope}
-      % Draw main color letters
-      \node at ( 90:2) {\footnotesize C};
-      \node at (-30:2) {\footnotesize Y};
-      \node at (210:2) {\footnotesize M};
-    \end{tikzpicture}
-
+    \cmyk
   };
 \end{tikzpicture}
 }
@@ -436,6 +477,16 @@ $$
 
 # Примеры
 
+::::::: columns
+
+:::::: {.column width=50%}
+
+```{=latex}
+\begin{minipage}[t][0.7\textheight][t]{\columnwidth}
+```
+
+:::: {.block}
+
 ## 
 
 - Множество подмножеств $S$  
@@ -446,6 +497,104 @@ $$
   $L = \mathbb{Z} \cup \{\top, \bot\}, \bot < \mathbb{Z} < \top$
 - Иерархия типов в программе  
   $L = Types, x \leq y = x <: y$ (*subtype*)
+
+::::
+
+```{=latex}
+\end{minipage}
+```
+
+::::::
+\vline
+:::::: {.column width=50%}
+
+```{=latex}
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+```{=latex}
+\only<+-+(1)>{
+```
+
+:::: {.block}
+
+## `\alt<.>{CMYK}{RGB}`{=latex}
+
+```{=latex}
+\vspace{-1em}
+$$
+L = 2^{\{\alt<.>{C, M, Y}{R, G, B}\}}, \wedge = \alt<.>{\cup}{\cap}
+$$
+```
+
+```{=latex}
+\centering
+\begin{tikzpicture}[
+    ->,>=latex,anchor=center,
+    every node/.style={inner sep=0.2em,font=\tiny},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    n/.style={base,draw,solid},
+    block/.style={n,circle},
+    every matrix/.style={row sep=3em,column sep=3em,ampersand replacement=\&,every node/.style={block}},
+    W/.style={fill=white},
+    R/.style={fill=red!75},
+    G/.style={fill=green!75},
+    B/.style={fill=blue!75},
+    C/.style={fill=cyan!75},
+    M/.style={fill=magenta!75},
+    Y/.style={fill=yellow!75},
+    K/.style={fill=black!75},
+  ]
+
+  \matrix {
+  \& \node [W] (W) {}; \& \\
+  \node [C] (C) {}; \& \node [M] (M) {}; \& \node [Y] (Y) {}; \\
+  \node [B] (B) {}; \& \node [G] (G) {}; \& \node [R] (R) {}; \\
+  \& \node [K] (K) {}; \& \\
+  };
+  \graph [use existing nodes] {
+    W -> {C, M, Y};
+    {C, M} -> B;
+    {C, Y} -> G;
+    {M, Y} -> R;
+    {R, G, B} -> K
+  };
+
+  \node [right=0 of W] (W label) {$\top = \alt<.>{\emptyset}{\{R, G, B\}}$};
+  \node [right=0 of R] (R label) {$\{\alt<.>{M, Y}{R}\}$};
+  \node [right=0 of G] (G label) {$\{\alt<.>{C, Y}{G}\}$};
+  \node [right=0 of B] (B label) {$\{\alt<.>{C, M}{B}\}$};
+  \node [right=0 of C] (C label) {$\{\alt<.>{C}{B, G}\}$};
+  \node [right=0 of M] (M label) {$\{\alt<.>{M}{B, R}\}$};
+  \node [right=0 of Y] (Y label) {$\{\alt<.>{Y}{G, R}\}$};
+  \node [right=0 of K] (K label) {$\bot = \alt<.>{\{C, M, Y\}}{\emptyset}$};
+
+  \node [left=0 of B] (B padding) {\phantom{$\{\alt<.>{M, Y}{G, R}\}$}};
+
+\end{tikzpicture}
+```
+
+::::
+
+```{=latex}
+\begin{tikzpicture}[remember picture,overlay]
+  \node [shift={(-1.2cm,1.2cm)}] at (current page.south east) {
+    \alt<.>{\cmyk}{\rgb}
+  };
+\end{tikzpicture}
+```
+
+```{=latex}
+}
+```
+
+```{=latex}
+\end{minipage}
+```
+
+::::::
+
+:::::::
 
 # Задача потокового анализа
 
