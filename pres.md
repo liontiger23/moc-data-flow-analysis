@@ -1515,6 +1515,44 @@ $$
 
 ::::::
 
+
+# Дополнительная литература
+
+:::::: columns
+::::: {.column width=57%}
+
+```{=latex}
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+:::: {.block}
+
+## A. V. Aho, M. S. Lam, R. Sethi, and J. D. Ullman. *Compilers: Principles, Techniques, and Tools*, 1986
+
+::::
+
+```{=latex}
+\end{minipage}
+```
+
+:::::
+::::: {.column width=43%}
+
+```{=latex}
+\begin{minipage}[c][0.7\textheight][c]{\columnwidth}
+```
+
+\centering
+![](images/dragon-book.jpg){height=80%}
+
+```{=latex}
+\end{minipage}
+```
+
+:::::
+
+::::::
+
 # {.plain}
 
 \vspace{.7\textheight}
