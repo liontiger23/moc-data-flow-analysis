@@ -757,10 +757,8 @@ $$
 ```
 
 ```{=latex}
-\only<9>{
-\centering
-\begin{tikzpicture}[
-    baseline=0,
+\gdef \constprop{
+\begin{scope}[
     ->,>=latex,
     every node/.style={inner sep=0.2em,font=\scriptsize},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto,circle},
@@ -785,6 +783,15 @@ $$
   \node [left=0.2em of minus two] (minus dots) {$\dots$};
   \node [right=0.2em of plus two] (plus dots) {$\dots$};
 
+\end{scope}
+}
+```
+
+```{=latex}
+\only<9>{
+\centering
+\begin{tikzpicture}[baseline=0]
+  \constprop
 \end{tikzpicture}
 }
 ```
@@ -1241,9 +1248,21 @@ $$
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
 ```
 
+:::: {.block}
+
+## Constant propagation
+
 ```{=latex}
-\vspace{1.5em}
 \centering
+\begin{tikzpicture}[remember picture,overlay]
+  \node [shift={(4.5em,-8.5em)}] at (current page.north) {
+    \scalebox{0.6}{
+      \begin{tikzpicture}
+        \constprop
+      \end{tikzpicture}
+    }
+  };
+\end{tikzpicture}
 \begin{tikzpicture}[
     ->,>=latex,
     every node/.style={inner sep=0.2em,font=\scriptsize},
@@ -1295,6 +1314,8 @@ $$
 
 \end{tikzpicture}
 ```
+
+::::
 
 ```{=latex}
 \end{minipage}
