@@ -134,7 +134,7 @@ subtitle: (Data-flow analysis)
 
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\footnotesize},
     base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -244,7 +244,7 @@ subtitle: (Data-flow analysis)
 ```{=latex}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\footnotesize},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -604,7 +604,7 @@ $$
 \uncover<3->{
 \begin{tikzpicture}[
     baseline=0,
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\scriptsize},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
@@ -629,7 +629,7 @@ $$
 \uncover<4->{
 \begin{tikzpicture}[
     baseline=0,
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\scriptsize},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
@@ -680,7 +680,7 @@ $$
 ```{=latex}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\tiny},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -770,7 +770,7 @@ $$
 ```{=latex}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\footnotesize},
     base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -1004,7 +1004,7 @@ $$
 ```{=latex}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\footnotesize},
     base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -1091,7 +1091,7 @@ $$
 \vspace{1.2em}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\footnotesize},
     base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
@@ -1140,7 +1140,7 @@ $$
 \vspace{1.5em}
 \centering
 \begin{tikzpicture}[
-    ->,>=latex,anchor=center,
+    ->,>=latex,
     every node/.style={inner sep=0.2em,font=\scriptsize},
     base/.style={minimum width={1.5em},minimum height={1.5em},inner sep=0,outer sep=auto},
     n/.style={base,draw,solid},
