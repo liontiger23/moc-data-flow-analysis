@@ -588,15 +588,15 @@ $$
   ]
 
   \matrix {
-  \& \node (top) {$\top$}; \& \\
-  \& \node (bot) {$\bot$}; \& \\
+  \& \node (top) {$\emptyset$}; \& \\
+  \& \node (bot) {$\{A\}$}; \& \\
   };
   \graph [use existing nodes] {
     top -> bot
   };
 
-  \node [right=0 of top] (top alt) {$= \emptyset$};
-  \node [right=0 of bot] (bot alt) {$= \{A\}$};
+  \node [right=0 of top] (top alt) {$= \top$};
+  \node [right=0 of bot] (bot alt) {$= \bot$};
 
 \end{tikzpicture}
 }
@@ -611,16 +611,16 @@ $$
   ]
 
   \matrix {
-  \& \node (top) {$\top$}; \& \\
+  \& \node (top) {$\emptyset$}; \& \\
   \node (A) {$\{A\}$}; \& \& \node (B) {$\{B\}$}; \\
-  \& \node (bot) {$\bot$}; \& \\
+  \& \node (bot) {$\{A, B\}$}; \& \\
   };
   \graph [use existing nodes] {
     top -> {A, B} -> bot
   };
 
-  \node [right=0 of top] (top alt) {$= \emptyset$};
-  \node [right=0 of bot] (bot alt) {$= \{A, B\}$};
+  \node [right=0 of top] (top alt) {$= \top$};
+  \node [right=0 of bot] (bot alt) {$= \bot$};
 
 
 \end{tikzpicture}
@@ -636,10 +636,10 @@ $$
   ]
 
   \matrix {
-  \& \node (top) {$\top$}; \& \\
+  \& \node (top) {$\emptyset$}; \& \\
   \node (A) {$\{A\}$}; \& \node (B) {$\{B\}$}; \& \node (C) {$\{C\}$}; \\
   \node (AB) {$\{A, B\}$}; \& \node (AC) {$\{A, C\}$}; \& \node (BC) {$\{B, C\}$}; \\
-  \& \node (bot) {$\bot$}; \& \\
+  \& \node (bot) {$\{A, B, C\}$}; \& \\
   };
   \graph [use existing nodes] {
     top -> {A, B, C};
@@ -649,8 +649,8 @@ $$
     {AB, BC, AC} -> bot
   };
 
-  \node [right=0 of top] (top alt) {$= \emptyset$};
-  \node [right=0 of bot] (bot alt) {$= \{A, B, C\}$};
+  \node [right=0 of top] (top alt) {$= \top$};
+  \node [right=0 of bot] (bot alt) {$= \bot$};
 
 
 \end{tikzpicture}
@@ -710,14 +710,14 @@ $$
     {R, G, B} -> K
   };
 
-  \node [right=0 of W] (W label) {$\top = \calt{\emptyset}{\{R, G, B\}}$};
+  \node [right=0 of W] (W label) {$\calt{\emptyset}{\{R, G, B\}}$};
   \node [right=0 of R] (R label) {$\{\calt{M, Y}{R}\}$};
   \node [right=0 of G] (G label) {$\{\calt{C, Y}{G}\}$};
   \node [right=0 of B] (B label) {$\{\calt{C, M}{B}\}$};
   \node [right=0 of C] (C label) {$\{\calt{C}{B, G}\}$};
   \node [right=0 of M] (M label) {$\{\calt{M}{B, R}\}$};
   \node [right=0 of Y] (Y label) {$\{\calt{Y}{G, R}\}$};
-  \node [right=0 of K] (K label) {$\bot = \calt{\{C, M, Y\}}{\emptyset}$};
+  \node [right=0 of K] (K label) {$\calt{\{C, M, Y\}}{\emptyset}$};
 
   \node [left=0 of B] (B padding) {\phantom{$\{\calt{M, Y}{G, R}\}$}};
 
@@ -727,6 +727,111 @@ $$
 ::::
 
 ```{=latex}
+}
+```
+
+```{=latex}
+\only<8>{
+\centering
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
+  ]
+
+  \matrix {
+  \& \node (top) {$\top$}; \& \\
+  \& \node (dots) {$\dots$}; \& \\
+  \& \node (second) {$2$}; \& \\
+  \& \node (first) {$1$}; \& \\
+  \& \node (bot) {$0$}; \& \\
+  };
+  \graph [use existing nodes] {
+    top -> dots -> second -> first -> bot
+  };
+
+\end{tikzpicture}
+}
+```
+
+```{=latex}
+\only<9>{
+\centering
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto,circle},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
+  ]
+
+  \matrix {
+  \& \& \node (top) {$\top$}; \& \& \\
+  \node (minus two) {$-2$}; \& \node (minus one) {$-1$}; \&
+  \node (zero) {$0$}; \&
+  \node (plus one) {$1$}; \& \node (plus two) {$2$}; \\
+  \& \& \node (bot) {$\bot$}; \& \& \\
+  };
+  \graph [use existing nodes] {
+    top -> {
+      minus two, minus one,
+      zero,
+      plus one, plus two
+    } -> bot
+  };
+
+  \node [left=0.2em of minus two] (minus dots) {$\dots$};
+  \node [right=0.2em of plus two] (plus dots) {$\dots$};
+
+\end{tikzpicture}
+}
+```
+
+```{=latex}
+\only<10>{
+\centering
+\begin{tikzpicture}[
+    baseline=0,
+    ->,>=latex,
+    every node/.style={inner sep=0.2em,font=\scriptsize},
+    base/.style={minimum width={1.5em -\pgflinewidth},minimum height={1.5em - \pgflinewidth},inner sep=0,outer sep=auto,circle},
+    every matrix/.style={row sep=1.5em,column sep=0.5em,ampersand replacement=\&,every node/.style={base}},
+    sibling distance=4em,
+    level distance=3em,
+  ]
+
+  \node {$\top$}
+    child { node {Human}
+      child { node {Teacher}
+        child [missing]
+        child { node (phd) {PhDStudent} }
+      }
+      child { node (student) {Student} }
+    }
+    child [missing]
+    child [missing]
+    child { node {Numeric}
+      child { node {Integral}
+        child { node (int) {Int}
+          child { node (bot) {$\bot$} }
+        }
+        child { node (long) {Long} }
+      }
+      child [missing]
+      child { node {FloatingPoint}
+        child { node (float) {Float} }
+        child { node (double) {Double} }
+      }
+    }
+  ;
+
+  \graph [use existing nodes] {
+    {student -> phd, long, float, double} -> bot
+  };
+
+\end{tikzpicture}
 }
 ```
 
