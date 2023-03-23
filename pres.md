@@ -1586,7 +1586,7 @@ $$
 ```
 
 \centering
-![](images/ppa.png){height=80%}
+![](images/ppa-book.png){height=80%}
 
 ```{=latex}
 }
