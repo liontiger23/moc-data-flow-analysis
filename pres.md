@@ -1525,14 +1525,39 @@ $$
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
 ```
 
+```{=latex}
+\only<1>{
+```
+
 :::: {.block}
 
-## A. V. Aho, M. S. Lam, R. Sethi, and J. D. Ullman. *Compilers: Principles, Techniques, and Tools*, 1986
+## A. V. Aho, M. S. Lam, R. Sethi, and J. D. Ullman.`\\`{=latex} *Compilers: Principles, Techniques, and Tools*, 1986
 
 \centering
-9.2 Introduction to Data-Flow Analysis
+*Introduction to Data-Flow Analysis*
 
 ::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\only<2>{
+```
+
+:::: {.block}
+
+## N. Flemming, H. R. Nielson, and C. Hankin.`\\`{=latex} *Principles of program analysis*. 2015
+
+\centering
+*Data Flow Analysis*
+
+::::
+
+```{=latex}
+}
+```
 
 ```{=latex}
 \end{minipage}
@@ -1545,8 +1570,27 @@ $$
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
 ```
 
+```{=latex}
+\only<1>{
+```
+
 \centering
 ![](images/dragon-book.jpg){height=80%}
+
+```{=latex}
+}
+```
+
+```{=latex}
+\only<2>{
+```
+
+\centering
+![](images/ppa.png){height=80%}
+
+```{=latex}
+}
+```
 
 ```{=latex}
 \end{minipage}
