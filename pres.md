@@ -391,7 +391,7 @@ subtitle: (Data-flow analysis)
 # Полурешетка свойств
 
 ::: columns
-:::: {.column width=50%}
+:::: {.column width=51%}
 
 ## Бинарная операция $\wedge$ (*meet*)
 
@@ -423,7 +423,7 @@ subtitle: (Data-flow analysis)
 ::::
 \vline
 \hfill
-:::: {.column width=46%}
+:::: {.column width=49%}
 
 ```{=latex}
 \uncover<2->{
@@ -431,33 +431,40 @@ subtitle: (Data-flow analysis)
 
 :::::{.block}
 
-## Свойства полурешеток
+## Ограниченность снизу
 
-Ограниченность снизу
-\vspace{-1em}
+\vspace{-1.5em}
 $$
 \exists \bot \in L : \forall x \in L : \bot \wedge x = \bot\ (\bot \leq x)
 $$
 
-\vspace{-1em} Ограниченность сверху
-\vspace{-1em}
+\up
+## Ограниченность сверху
+
+\vspace{-1.5em}
 $$
 \exists \top \in L : \forall x \in L : \top \wedge x = x\ (x \leq \top)
 $$
 
-\vspace{-1em} Высота полурешетки
-\vspace{-1em}
+\up
+## Высота полурешетки
+
+\vspace{-1.5em}
 $$
 H_L = max \bigl\{ | x_1 > x_2 > \dots\, \in L | \bigr\}
 $$
 
-\vspace{-1em} Обрыв убывающих цепей
-\vspace{-1em}
+\up
+## Обрыв убывающих цепей
+
+\vspace{-1.5em}
 $$
 \forall x_1 > x_2 > \dots\, \in L : \exists k : \nexists y \in L : x_k > y
 $$
 
-\vspace{-1em} Произведение полурешеток
+\up
+## Произведение полурешеток
+
 \vspace{-1em}
 $$
 \begin{aligned}
