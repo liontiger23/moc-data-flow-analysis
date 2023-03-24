@@ -216,7 +216,8 @@ subtitle: (Data-flow analysis)
 
   \node [right=0em of in,tiny block,in value] (in value) {};
   \node [right=0em of out,tiny block,out value] (out value) {};
-  \path [draw,transfer] (in value) -- (out value) node [transfer label,midway,yshift=0.2em,xshift=0.8em] {$\wedge$};
+  \path [draw,transfer] (in value) -- (out value) node [transfer,midway,yshift=0.2em,anchor=west,minimum width=4em]
+    {$f_v = \alt<\magentanode,\cyannode,\yellownode>{\wedge}{id}$};
 
 \end{tikzpicture}
 ```
