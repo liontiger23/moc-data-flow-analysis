@@ -1,23 +1,22 @@
 ---
-title: Потоковый анализ
-subtitle: (Data-flow analysis)
+title: Data-flow analysis
 ---
 
-# Потоковый анализ
+# Data-flow analysis
 
 ::::::: columns
 ::::: {.column width=50%}
 
-## Потоковый анализ
+## Data-flow analysis
 
 \up
-- Статический
-- Глобальный (весь CFG)
-- Зависит от потока управления
-- Вычисление свойств исполнения программы
-- Единая формальная модель и теория
+- Static
+- Global (whole CFG)
+- Control-flow dependent
+- Computes run-time properties
+- Unified formal model and theory
 
-## Применение
+## Applications
 
 \up
 - Reaching definitions (use-def links)
@@ -76,7 +75,7 @@ subtitle: (Data-flow analysis)
 :::::
 :::::::
 
-# Пример
+# Example
 
 ::::::: columns
 ::::: {.column width=50%}
@@ -87,14 +86,14 @@ subtitle: (Data-flow analysis)
 
 :::: {.block}
 
-# Окружение потокового анализа
+# Data-flow framework
 
 \up
-- Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
-- Направление анализа $D \in \{ \downarrow, \uparrow \}$
-- Полурешетка свойств $\langle L, \wedge \rangle$ огр. сверху
-- Преобразователи свойств $f_{v \in V}\colon L \to L$
-- Начальная разметка $in_0(v) = out_0(v) = \top$
+- Flow graph $G = \langle V, E, v_{entry}, v_{exit} \rangle$
+- Direction of analysis $D \in \{ \downarrow, \uparrow \}$
+- Meet-semilattice $\langle L, \wedge \rangle$ with upper bound
+- Transfer functions $f_{v \in V}\colon L \to L$
+- Boundary condition $in_0(v) = out_0(v) = \top$
 
 ::::
 
@@ -388,30 +387,30 @@ subtitle: (Data-flow analysis)
 :::::
 :::::::
 
-# Полурешетка свойств
+# Meet-semilattice
 
 ::: columns
 :::: {.column width=51%}
 
-## Бинарная операция $\wedge$ (*meet*)
+## Binary operation $\wedge$ (*meet*)
 
 \up
-- $x \wedge x = x$ (*идемпотентность*)
-- $x \wedge y = y \wedge x$ (*коммутативность*)
-- $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*ассоциативность*)
+- $x \wedge x = x$ (*idempotency*)
+- $x \wedge y = y \wedge x$ (*commutativity*)
+- $(x \wedge y) \wedge z = x \wedge (y \wedge z)$ (*associativity*)
 
-## Частичный порядок $\leq$
+## Partial order $\leq$
 
 \up
-- $x \leq x$ (*рефлексивность*)
-- $x \leq y\ \&\ y \leq z \Rightarrow x \leq z$ (*транзитивность*)
-- $x \leq y\ \&\ y \leq x \Rightarrow x = y$ (*антисимметричность*)
+- $x \leq x$ (*reflexivity*)
+- $x \leq y\ \&\ y \leq z \Rightarrow x \leq z$ (*transitivity*)
+- $x \leq y\ \&\ y \leq x \Rightarrow x = y$ (*antisymmetry*)
 
-## Полурешетка $\langle L, \wedge \rangle$ `\uncover<1->{\footnote<1->[frame]{
-Выполняются ли свойства частичного порядка при таком определении $\leq$ через $\wedge$?
+## Semilattice $\langle L, \wedge \rangle$ `\uncover<1->{\footnote<1->[frame]{
+Do partial order conditions hold for this definition of $\leq$ via $\wedge$?
 } \footnote<1->[frame]{
-Можно ли восстановить полурешетку $\langle L, \wedge \rangle$
-имея только частичный порядок $\langle L, \leq \rangle$?
+Is it possible to define semilattice $\langle L, \wedge \rangle$
+having only partial order $\langle L, \leq \rangle$?
 }}`{=latex}
 
 \up
@@ -431,7 +430,7 @@ subtitle: (Data-flow analysis)
 
 :::::{.block}
 
-## Ограниченность снизу
+## Upper bound
 
 \vspace{-1.5em}
 $$
@@ -439,7 +438,7 @@ $$
 $$
 
 \up
-## Ограниченность сверху
+## Lower bound
 
 \vspace{-1.5em}
 $$
@@ -447,7 +446,7 @@ $$
 $$
 
 \up
-## Высота полурешетки
+## Semilattice height
 
 \vspace{-1.5em}
 $$
@@ -455,7 +454,7 @@ H_L = max \bigl\{ | x_1 > x_2 > \dots\, \in L | \bigr\}
 $$
 
 \up
-## Обрыв убывающих цепей
+## Descending chain condition
 
 \vspace{-1.5em}
 $$
@@ -463,7 +462,7 @@ $$
 $$
 
 \up
-## Произведение полурешеток
+## Semilattice product
 
 \vspace{-1em}
 $$
@@ -483,7 +482,7 @@ $$
 :::
 
 
-# Примеры
+# Examples
 
 ::::::: columns
 
@@ -499,7 +498,7 @@ $$
 
 :::: {.block}
 
-## Множество подмножеств $S$
+## Power set of $S$
 
 \vspace{-1em}
 $$
@@ -518,7 +517,7 @@ $$
 
 :::: {.block}
 
-## Натуральные числа
+## Natural numbers
 
 \vspace{-1em}
 $$
@@ -537,7 +536,7 @@ $$
 
 :::: {.block}
 
-## Целочисленные константы
+## Integer constants
 
 \vspace{-1em}
 $$
@@ -556,7 +555,7 @@ $$
 
 :::: {.block}
 
-## Иерархия типов в программе
+## Program type hierarchy
 
 \vspace{-1em}
 $$
@@ -868,7 +867,7 @@ $$
 
 :::::::
 
-# Задача потокового анализа
+# Data-flow framework
 
 ::::::: columns
 ::::: {.column width=50%}
@@ -930,22 +929,22 @@ $$
 ```{=latex}
 \uncover<3->{
 \centering
-\begin{minipage}[t]{0.75\columnwidth}
+\begin{minipage}[t]{0.65\columnwidth}
 ```
 
 :::: {.block}
 
-## Преобразователи свойств
+## Transfer functions
 
-Монотонная функция $f$ на $\langle L, \leq \rangle$
+Monotone function $f$ on $\langle L, \leq \rangle$
 
 \vspace{-1.5em}
 $$
 x \leq y \Rightarrow f(x) \leq f(y)
 $$
 
-Монотонная функция $f$ на $\langle L, \wedge \rangle$ \footnote<3->[frame]{
-Докажите эквивалентность определений монотонной функции на $\langle L, \leq \rangle$ и на $\langle L, \wedge \rangle$.
+Monotone function $f$ on $\langle L, \wedge \rangle$ \footnote<3->[frame]{
+Prove the equivalence of given monotone function definitions on $\langle L, \leq \rangle$ and on $\langle L, \wedge \rangle$.
 }
 
 \vspace{-1.5em}
@@ -953,7 +952,7 @@ $$
 f(x \wedge y) \leq f(x) \wedge f(y)
 $$
 
-Дистрибутивная функция $f$ на $\langle L, \wedge \rangle$
+Distributive function $f$ on $\langle L, \wedge \rangle$
 
 \vspace{-1.5em}
 $$
@@ -986,7 +985,7 @@ $$
 
 :::: {.block}
 
-## Система потоковых уравнений
+## Data-flow equations
 
 \up
 ```{=latex}
@@ -1027,7 +1026,7 @@ $$
 
 ## Maximum Fixed Point (MFP)
 
-Наибольшее решение среди всех решений $S$
+Maximum solution among all solutions $S$
 
 \vspace{-1em}
 ```{=latex}
@@ -1056,11 +1055,11 @@ $$
 
 :::: {.block}
 
-## Условия сходимости
+## Convergence conditions
 
 \up
-- Монотонность преобразователей $f_v$
-- Полурешетка $\langle L, \wedge \rangle$ с обрывом цепей
+- Monotonicity of transfer functions $f_v$
+- Meet-semilattice $\langle L, \wedge \rangle$ with descending chains condition
 
 ::::
 
@@ -1076,12 +1075,12 @@ $$
 
 ::::::
 
-# Примеры не сходящегося анализа
+# Examples of divergent analysis
 
 :::::: columns
 ::::: {.column width=50%}
 
-## Монотонность преобразователей
+## Monotonicity of transfer functions
 
 ```{=latex}
 \up
@@ -1096,8 +1095,8 @@ $$
 ```
 \vspace{1em}
 
-## Обрыв убывающих цепей `\footnote[frame]{
-Существуют ли полурешетки с обрывом цепей неограниченной высоты?
+## Descending chain condition `\footnote[frame]{
+Can there be a semilattice with unlimited height which satisfies descending chain condition?
 }`{=latex}
 
 
@@ -1159,12 +1158,12 @@ $$
 
 
 <!-- TODO
-# Оценка сложности
+# Time complexity
 
 Topsort ??
 -->
 
-# Точность решения
+# Precision
 
 :::::: columns
 
@@ -1173,11 +1172,11 @@ Topsort ??
 :::: {.block}
 
 ## Meet Over Paths (MOP) `\footnote[frame]{
-Рассмотрен случай нисходящего анализа $D=\downarrow$, для восходящего $D=\uparrow$ рассуждения аналогичны.
+Here we only consider forward-flow analysis $D=\downarrow$, the case of backwards-flow analysis $D=\uparrow$ is the same.
 }`{=latex}
 
 
-Точное решение по всем путям $v_{entry} \rightarrow \dots \rightarrow v$
+Precise solution over all paths $v_{entry} \rightarrow \dots \rightarrow v$
 
 \vspace{-1em}
 $$
@@ -1188,8 +1187,8 @@ $$
 \vspace{-1em}
 :::: {.block}
 
-## Безопасность MFP `\uncover<6->{\footnote<6->[frame]{
-В случае дистрибутивных преобразователей MFP всегда точно --- $out_{MFP}(v) = out_{MOP}(v)$.
+## MFP safety `\uncover<6->{\footnote<6->[frame]{
+If transfer functions are distributive, then MFP is always precise --- $out_{MFP}(v) = out_{MOP}(v)$.
 }}`{=latex}
 
 
@@ -1334,7 +1333,7 @@ $$
 
 ::::::
 
-# Потоковый анализ программ
+# Data-flow analysis of programs
 
 :::::: columns
 
@@ -1350,10 +1349,10 @@ $$
 
 \up
 - $CFG = \langle B, E, entry, exit \rangle$
-- Каждый блок $b \in B$ содержит одну операцию
-- $V$ --- множество переменных программы
-- $def_v \subseteq B$ --- множество *присваиваний* в переменную $v \in V$ (напр. `v = 3`)
-- $use_v \subseteq B$ --- множество *использований* переменной $v \in V$ (напр. `x = y + v`)
+- Every block $b \in B$ contains exactly one operation
+- $V$ --- set of varbles in a program
+- $def_v \subseteq B$ --- set of *assignments* into variable $v \in V$ (e.g. `v = 3`)
+- $use_v \subseteq B$ --- set of *uses* of variable $v \in V$ (e.g. `x = y + v`)
 
 ::::
 
@@ -1437,12 +1436,12 @@ $$
 
 :::: {.block}
 
-## Gen-Kill формализм
+## Gen-Kill formalism
 
-- $L = 2^S, \wedge = \cup \text{ или } \cap$
+- $L = 2^S, \wedge = \cup \text{ or } \cap$
 - $f_b(x) = gen_b \cup (x \setminus kill_b)$
-- $gen_b$ --- свойства порождаемые блоком $b$
-- $kill_b$ --- свойства убиваемые блоком $b$
+- $gen_b$ --- properties *generated* by block $b$
+- $kill_b$ --- properties *killed* by block $b$
 
 ::::
 
@@ -1456,14 +1455,14 @@ $$
 
 :::: {.block}
 
-## Следствия
+## Result
 
 \up
-- $\langle L, \wedge \rangle$ --- конечная полурешетка
-- $f_b$ --- дистрибутивные функции `\only<3->{\stepcounter{footnote}\footnote<3->{
-Докажите дистрибутивность $f_b$ в gen-kill форме.
+- $\langle L, \wedge \rangle$ --- finite semilattice
+- $f_b$ --- distributive functions `\only<3->{\stepcounter{footnote}\footnote<3->{
+Prove distributivity of $f_b$ in gen-kill form.
 }}`{=latex}
-- Анализ *всегда* сходится к точному решению
+- Analysis *always* converges to precise solution
 
 ::::
 
@@ -1479,26 +1478,26 @@ $$
 
 ::::::
 
-# Заключение
+# Conclusion
 
 :::::: columns
 
 ::::: {.column width=48.5%}
 
-## Достоинства
+## Benefits
 
 \up
-- Глобальный статический анализ
-- Универсальная теоретическая модель
-- Простота реализации
-- gen-kill формализм гарантирует сходимость и точность
+- Global static analysis
+- Universal theoretical model
+- Straightforward implementation
+- gen-kill formalism guarantees convergence and precision
 
-## Недостатки
+## Drawbacks
 
 \up
-- Результат инвалидируется оптимизациями
-- Анализы не комбинируются эффективно
-- Не всегда удается гарантировать сходимость и точность
+- Result gets invalidated after optimizations
+- Analsyses do not compose quite efficiently
+- Convergence and precision are not guaranteed in general
 
 :::::
 \vline
@@ -1524,7 +1523,7 @@ $$
 ::::::
 
 
-# Дополнительная литература
+# Further reading
 
 :::::: columns
 ::::: {.column width=57%}
@@ -1612,6 +1611,6 @@ $$
 
 \vspace{.7\textheight}
 \begin{beamercolorbox}[ht=4ex,dp=2ex,center]{title}
-\large Спасибо за внимание
+\large Thank you for attention
 \end{beamercolorbox}
 
