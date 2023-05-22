@@ -502,7 +502,7 @@ $$
 
 \vspace{-1em}
 $$
-L = 2^S, \wedge = \cup \text{ или } \cap
+L = 2^S, \wedge = \cup \text{ or } \cap
 $$
 
 ::::
