@@ -86,7 +86,7 @@ title: Data-flow analysis
 
 :::: {.block}
 
-# Data-flow framework
+## Data-flow framework
 
 \up
 - Flow graph $G = \langle V, E, v_{entry}, v_{exit} \rangle$
@@ -1526,7 +1526,7 @@ Prove distributivity of $f_b$ in gen-kill form.
 # Further reading
 
 :::::: columns
-::::: {.column width=57%}
+::::: {.column width=60%}
 
 ```{=latex}
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
@@ -1555,7 +1555,24 @@ Prove distributivity of $f_b$ in gen-kill form.
 
 :::: {.block}
 
-## N. Flemming, H. R. Nielson, and C. Hankin.`\\`{=latex} *Principles of program analysis*. 2015
+## S. S. Muchnick. `\\`{=latex} *Advanced compiler design and implementation*, 1997
+
+\centering
+*Data-Flow Analysis*
+
+::::
+
+```{=latex}
+}
+```
+
+```{=latex}
+\only<3>{
+```
+
+:::: {.block}
+
+## N. Flemming, H. R. Nielson, and C. Hankin.`\\`{=latex} *Principles of program analysis*, 2015
 
 \centering
 *Data Flow Analysis*
@@ -1571,7 +1588,7 @@ Prove distributivity of $f_b$ in gen-kill form.
 ```
 
 :::::
-::::: {.column width=43%}
+::::: {.column width=40%}
 
 ```{=latex}
 \begin{minipage}[c][0.7\textheight][c]{\columnwidth}
@@ -1590,6 +1607,17 @@ Prove distributivity of $f_b$ in gen-kill form.
 
 ```{=latex}
 \only<2>{
+```
+
+\centering
+![](images/muchnick-book.jpg){height=80%}
+
+```{=latex}
+}
+```
+
+```{=latex}
+\only<3>{
 ```
 
 \centering
