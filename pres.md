@@ -87,7 +87,7 @@ subtitle: (Data-flow analysis)
 
 :::: {.block}
 
-# Окружение потокового анализа
+## Окружение потокового анализа
 
 \up
 - Потоковый граф $G = \langle V, E, v_{entry}, v_{exit} \rangle$
