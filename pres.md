@@ -1235,7 +1235,7 @@ $$
   $\ \quad
   \uncover<3->{\underbrace{f_v(x \wedge y)}_{\textstyle out_{MFP}(v)}}
     \uncover<5->{\leq}
-  \uncover<4->{\underbrace{f_v(x) \wedge f_v(x)}_{\textstyle out_{MOP}(v)}}
+  \uncover<4->{\underbrace{f_v(x) \wedge f_v(y)}_{\textstyle out_{MOP}(v)}}
   $
   };
 
