@@ -459,7 +459,7 @@ $$
 
 \vspace{-1.5em}
 $$
-\forall x_1 > x_2 > \dots\, \in L : \exists k : \nexists y \in L : x_k > y
+\forall x_1 \geq x_2 \geq \dots\, \in L : \exists k : x_k = x_{k+1} = \dots
 $$
 
 \up
